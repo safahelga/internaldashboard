@@ -1,0 +1,3616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Dental Inc. — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #F6F7FB;
+  --bg-hover: #f8f9ff;
+  --bg-selected: #eef3ff;
+  --bg-input: #ffffff;
+  --bg-danger: #fff1f1;
+  --bg-muted: #f9fafb;
+  --bg-focus: #f3f4f6;
+  --text-primary: #333333;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9CA3AF;
+
+  --text-danger: #dc2626;
+  --border: #e8e8e6;
+  --border-row: #f0f0ee;
+  --border-focus: #0074E6;
+  --border-outline: #d1d5db;
+  --accent: #0074E6;
+  --accent-bg: #e6f2ff;
+  --accent-text: #0074E6;
+  --sidebar-bg: #1e2235;
+  --sidebar-badge: #2a3050;
+  --add-hover: #E5E7EB;
+  --hover-bg: #E5E7EB;
+  --transition: background .15s, color .15s, border-color .15s;
+}
+
+body.dark {
+  --bg: #1c1c1e;
+  --bg-secondary: #252528;
+  --bg-hover: #1e2235;
+  --bg-selected: #1a2340;
+  --bg-input: #1c1c1e;
+  --bg-danger: #2d1515;
+  --bg-muted: #252528;
+  --bg-focus: #2a2a2e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #9ca3af;
+  --text-tertiary: #6b7280;
+
+  --text-danger: #f87171;
+  --border: #2e2e32;
+  --border-row: #28282c;
+  --border-focus: #0074E6;
+  --border-outline: #3f3f46;
+  --accent: #0074E6;
+  --accent-bg: #003d7a;
+  --accent-text: #60b4ff;
+  --sidebar-bg: #111113;
+  --sidebar-badge: #1e2235;
+  --add-hover: #2e2e32;
+  --hover-bg: #2e2e32;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 18px;
+  height: 100vh;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.shell { display: flex; height: 100vh; overflow: hidden; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 56px;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 4px;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+
+.sb-logo {
+  width: 34px; height: 34px;
+  background: #e8401c;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
+}
+
+.sb-icon {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  color: #5a6480;
+  cursor: pointer;
+}
+
+.sb-icon:hover { background: rgba(255,255,255,.07); color: var(--text-tertiary); }
+
+.sb-dot { width: 7px; height: 7px; border-radius: 50%; margin: 3px auto; }
+
+.sb-badge {
+  width: 32px; height: 32px;
+  background: var(--sidebar-badge);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: white; cursor: pointer;
+}
+
+.sb-avatar {
+  width: 28px; height: 28px;
+  background: #4b5563;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: white;
+}
+
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+/* TOP NAV */
+.topnav {
+  height: 56px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.tn-left { display: flex; align-items: center; gap: 8px; }
+
+.co-avatar {
+  width: 34px; height: 34px;
+  background: #0074E6;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: white;
+}
+
+.co-name { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+
+.badge-green {
+  display: flex; align-items: center; gap: 4px;
+  background: #dcfce7; color: #15803d;
+  font-size: 11px; font-weight: 500;
+  padding: 3px 9px; border-radius: 20px;
+}
+
+.badge-green::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+
+.av-sm {
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700; color: white;
+  border: 1.5px solid var(--bg);
+}
+
+.tn-name { font-size: 12px; color: var(--text-secondary); }
+.tn-right { display: flex; gap: 7px; align-items: center; }
+
+.tn-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  cursor: pointer; font-family: inherit; transition: var(--transition);
+}
+
+.tn-btn:hover { background: var(--hover-bg); }
+
+/* THEME TOGGLE */
+.theme-toggle {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); cursor: pointer;
+  color: var(--text-secondary); transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover { background: var(--hover-bg); color: var(--text-primary); }
+
+/* PAGE TABS */
+.page-tabs {
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 0 20px; display: flex; align-items: center; flex-shrink: 0;
+  gap: 16px;
+  transition: var(--transition);
+}
+
+.ptab {
+  padding: 13px 0; font-size: 12px; color: var(--text-secondary);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; white-space: nowrap; transition: color .12s;
+}
+
+.ptab:hover { color: var(--text-secondary); }
+.ptab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+/* CONTENT */
+.content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.panels-wrap {
+  flex: 1; display: flex; align-items: stretch;
+  padding: 16px; gap: 8px; overflow: hidden; min-width: 0;
+  box-sizing: border-box;
+}
+
+.table-area {
+  flex: 0 0 auto; width: 50%; overflow: hidden; display: flex; flex-direction: column;
+  min-width: 320px; max-width: calc(100% - 320px);
+  transition: width .32s cubic-bezier(.4,0,.2,1), min-width .32s, max-width .32s, opacity .25s ease;
+}
+
+.table-area.collapsing {
+  width: 0 !important; min-width: 0 !important; max-width: 0 !important; opacity: 0;
+}
+
+.table-area.expanding {
+  width: 50%; opacity: 1;
+}
+
+.wp-wrapper {
+  flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden;
+  transition: flex .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+}
+
+.wp-wrapper.collapsing {
+  flex: 0 0 0 !important; opacity: 0; overflow: hidden;
+}
+
+.wp-panel {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bg); min-width: 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Vertical tab strips */
+.panel-tab {
+  display: none;
+  width: 32px; flex-shrink: 0;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer; align-items: center; justify-content: center;
+  transition: background .1s;
+}
+
+.panel-tab:hover { background: var(--hover-bg); }
+
+.panel-tab-label {
+  writing-mode: vertical-rl;
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  white-space: nowrap; user-select: none;
+}
+
+.tcard-tab {
+  display: none; flex-shrink: 0; width: 32px;
+  align-items: center; justify-content: center;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 10px; cursor: pointer;
+  transition: background .1s;
+}
+
+.tcard-tab.visible { display: flex; }
+.tcard-tab:hover { background: var(--hover-bg); }
+
+.wp-tab-strip {
+  display: none; flex-shrink: 0; width: 30px; min-width: 30px;
+  align-items: center; justify-content: center;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 10px; cursor: pointer;
+  transition: background .1s;
+}
+
+.wp-tab-strip.visible { display: flex; }
+.wp-tab-strip:hover { background: var(--hover-bg); }
+
+.wp-tab-strip-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  white-space: nowrap; user-select: none;
+}
+
+.resizer { transition: opacity .2s ease; }
+.resizer.hidden { opacity: 0; pointer-events: none; }
+
+.tcard-scroll.trial-mode .actn {
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ── TRIAL BALANCE MULTI-MONTH ── */
+.tcard-scroll.trial-mode .col-hdr,
+.tcard-scroll.trial-mode .filter-row,
+.tcard-scroll.trial-mode .acc-row,
+.tcard-scroll.trial-mode .cat-row,
+.tcard-scroll.trial-mode .tot-row {
+  grid-template-columns: max-content minmax(220px,1fr) var(--xero-w,130px) 130px var(--xero-w,130px) 130px 150px;
+  min-width: 1200px;
+}
+
+.tcard-scroll.trial-mode .conv-only { display: none !important; }
+  top: 60px;
+}
+
+.tcard-scroll.trial-mode .tb-month-hdr {
+  min-width: 1200px;
+}
+
+.tcard-scroll.trial-mode .tcard-body {
+  min-width: 1200px;
+}
+
+/* When Xero columns are hidden */
+.tcard-scroll.trial-mode.tb-xero-hidden .col-hdr,
+.tcard-scroll.trial-mode.tb-xero-hidden .filter-row,
+.tcard-scroll.trial-mode.tb-xero-hidden .acc-row,
+.tcard-scroll.trial-mode.tb-xero-hidden .cat-row,
+.tcard-scroll.trial-mode.tb-xero-hidden .tot-row,
+.tcard-scroll.trial-mode.tb-xero-hidden .tb-month-hdr,
+.tcard-scroll.trial-mode.tb-xero-hidden .tcard-body {
+  min-width: 900px;
+}
+
+:root { --xero-w: 130px; }
+
+.tb-month-hdr {
+  display: grid;
+  grid-template-columns: max-content 1fr var(--xero-w,130px) 130px var(--xero-w,130px) 130px 150px;
+  grid-template-rows: 30px 30px;
+  height: 60px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0; min-width: 800px;
+  position: sticky; top: 0; z-index: 11;
+  transition: var(--transition);
+}
+
+.tb-sub-hdr { display: none !important; }
+
+.tb-month-span {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 400; color: var(--text-secondary);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  user-select: none; gap: 4px;
+}
+
+.tb-month-span.code-col { justify-content: flex-start; padding-left: 16px; padding-right: 6px; border-right: 1px solid var(--border); color: var(--text-secondary); font-weight: 400; width: 130px; }
+.tb-month-span.acct-col { justify-content: flex-start; padding-left: 10px; color: var(--text-secondary); font-weight: 400; border-right: 1px solid var(--border); }
+.tb-month-span.empty-col { border-right: none; border-bottom: none; }
+
+.tb-xero-toggle {
+  background: transparent; border: none; cursor: pointer;
+  width: 24px; height: 24px; border-radius: 4px; flex-shrink: 0;
+  color: var(--text-tertiary); padding: 0; display: flex; align-items: center; justify-content: center;
+  transition: background .1s, color .1s;
+  position: relative;
+}
+.tb-xero-toggle:hover { background: var(--hover-bg); color: var(--text-secondary); }
+.tb-xero-toggle .tt {
+  position: fixed; background: #333333; color: white;
+  font-size: 11px; font-family: inherit; padding: 6px 9px; border-radius: 6px;
+  white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity .1s; z-index: 9999;
+}
+
+.tb-sub-cell {
+  display: flex; align-items: center; justify-content: flex-start; gap: 4px;
+  font-size: 12px; color: var(--text-secondary); padding: 0 10px;
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  transition: max-width .25s cubic-bezier(.4,0,.2,1), opacity .2s ease, padding .25s;
+}
+
+.tb-sub-cell.xero-col { max-width: 130px; }
+.tb-sub-cell.xero-col.hidden,
+.fcell.xero-col.hidden { max-width: 0; opacity: 0; padding: 0; pointer-events: none; border: none; overflow: hidden; }
+.tb-sub-cell.xero-col,
+.fcell.xero-col,
+.tot-amt.xero-col { transition: max-width .25s, opacity .2s, padding .25s; }
+.tot-amt.xero-col.hidden { max-width: 0; opacity: 0; padding: 0; overflow: hidden; }
+
+.xero-tot.hidden { display: none; }
+
+.tcard-scroll.tb-xero-hidden { --xero-w: 0px; }
+
+
+/* RESIZER */
+.resizer {
+  flex: 0 0 8px;
+  width: 8px;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  transition: opacity .2s ease;
+}
+
+.resizer::before {
+  content: '';
+  width: 2px;
+  height: 40px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background .15s, height .15s;
+}
+
+.resizer:hover::before,
+.resizer.dragging::before {
+  background: var(--accent);
+  height: 60px;
+}
+
+/* WORKING PAPER PANEL */
+.wp-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 8px 8px 16px; flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.wp-title { font-size: 12px; font-weight: 600; line-height: 18px; font-family: 'Inter', inherit; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+.wp-push-btn {
+  font-size: 12px; font-family: inherit; font-weight: 600;
+  padding: 5px 8px; border: none; border-radius: 6px;
+  background: #1AB4D7; color: white; cursor: pointer;
+  transition: background .1s;
+}
+
+.wp-push-btn:hover { background: #13a0c0; }
+
+.wp-formula-bar {
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0; height: 32px;
+}
+
+.wp-cell-ref {
+  width: 60px; padding: 0 10px;
+  font-size: 12px; color: var(--text-secondary);
+  border-right: 1px solid var(--border);
+  height: 100%; display: flex; align-items: center;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.wp-fx {
+  padding: 0 10px; display: flex; align-items: center; gap: 6px;
+  flex: 1;
+}
+
+.wp-sheet-wrap {
+  flex: 1; overflow: auto; min-height: 0;
+  background: var(--bg);
+}
+
+/* Grid */
+.wp-grid {
+  display: grid;
+  min-width: max-content;
+  font-size: 12px;
+}
+
+.wp-row { display: contents; }
+
+.wp-row-num {
+  width: 40px; min-width: 40px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  border-top: 1px solid var(--border-row);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-tertiary);
+  user-select: none; flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.wp-col-hdr {
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-row);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--text-tertiary);
+  user-select: none; padding: 4px 0;
+  position: sticky; top: 0; z-index: 5;
+}
+
+.wp-col-hdr.active-col { background: #d4e6ff; color: #0074E6; }
+body.dark .wp-col-hdr.active-col { background: #003d7a; color: #60b4ff; }
+
+.wp-cell {
+  border-right: 1px solid var(--border-row);
+  border-top: 1px solid var(--border-row);
+  padding: 3px 6px;
+  min-height: 24px;
+  font-size: 12px; color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  cursor: cell;
+  transition: background .08s;
+}
+
+.wp-cell:focus {
+  outline: 2px solid #0074E6;
+  outline-offset: -2px;
+  z-index: 2;
+  position: relative;
+}
+
+.wp-cell.active-cell { background: #e8f2ff; }
+body.dark .wp-cell.active-cell { background: #1a2a3f; }
+
+/* Sheet tabs bar */
+.wp-tabs-bar {
+  display: flex; align-items: center;
+  border-top: 1px solid var(--border);
+  background: var(--bg-secondary);
+  flex-shrink: 0; height: 36px;
+  overflow: hidden;
+}
+
+.wp-tabs {
+  display: flex; align-items: stretch;
+  overflow-x: auto; flex: 1;
+  scrollbar-width: none;
+}
+
+.wp-tabs::-webkit-scrollbar { display: none; }
+
+.wp-tab {
+  display: flex; align-items: center;
+  padding: 4px 8px; font-size: 12px;
+  color: var(--text-secondary); cursor: pointer;
+  border-right: 1px solid var(--border);
+  white-space: nowrap; flex-shrink: 0;
+  transition: background .1s, color .1s;
+  user-select: none;
+}
+
+.wp-tab:hover { background: var(--hover-bg); color: var(--text-primary); }
+
+.wp-tab.active {
+  background: var(--bg);
+  color: var(--accent);
+  border-top: 2px solid var(--accent);
+  font-weight: 500;
+}
+
+.wp-tab-arrow {
+  width: 32px; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; cursor: pointer;
+  color: var(--text-tertiary); border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.wp-tab-arrow:hover { color: var(--text-primary); background: var(--hover-bg); }
+
+/* TABLE CARD */
+/* Thin scrollbars for tcard-scroll */
+.tcard-scroll { scrollbar-width: thin; scrollbar-color: rgba(128,128,128,.35) transparent; }
+.tcard-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.tcard-scroll::-webkit-scrollbar-track { background: transparent; }
+.tcard-scroll::-webkit-scrollbar-thumb { background: rgba(128,128,128,.35); border-radius: 999px; }
+.tcard-scroll::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,.55); }
+.tcard-scroll::-webkit-scrollbar-corner { background: transparent; }
+/* Also for tcard-body vertical scroll */
+.tcard-body { scrollbar-width: thin; scrollbar-color: rgba(128,128,128,.35) transparent; }
+.tcard-body::-webkit-scrollbar { width: 6px; height: 6px; }
+.tcard-body::-webkit-scrollbar-track { background: transparent; }
+.tcard-body::-webkit-scrollbar-thumb { background: rgba(128,128,128,.35); border-radius: 999px; }
+.tcard-body::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,.55); }
+
+.tcard { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; flex: 1; min-height: 0; transition: var(--transition); }
+
+.tcard-scroll {
+  flex: 1; display: flex; flex-direction: column; overflow-x: auto; overflow-y: hidden; min-height: 0; min-width: 0;
+  transition: opacity .2s ease, transform .22s cubic-bezier(.4,0,.2,1);
+}
+
+.tcard-scroll.slide-out {
+  opacity: 0; transform: translateX(-18px); pointer-events: none;
+}
+
+.tcard-scroll.tab-exit {
+  opacity: 0; transform: translateX(0); pointer-events: none;
+  transition: opacity .15s ease !important;
+}
+
+.tcard-scroll.tab-enter-from-right {
+  opacity: 0; transform: translateX(24px);
+  transition: none !important;
+}
+
+.tcard-scroll.tab-enter-from-left {
+  opacity: 0; transform: translateX(-24px);
+  transition: none !important;
+}
+
+/* ttab active indicator animate */
+.ttab {
+  position: relative;
+}
+
+/* Add row button row */
+.add-row-btn-row {
+  display: flex; align-items: center; padding: 0 0 0 50px;
+  height: 40px; flex-shrink: 0; border-top: 1px solid var(--border-row);
+  cursor: pointer; transition: background .1s; background: var(--bg);
+}
+.add-row-btn-row:hover { background: var(--hover-bg); }
+.add-row-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 12px; font-family: 'Inter', inherit; font-weight: 400; line-height: 18px;
+  color: var(--text-secondary); padding: 0; display: flex; align-items: center;
+}
+.cat-count { font-size:12px; font-family:'Inter',inherit; font-weight:400; line-height:18px; color:var(--text-secondary); white-space:nowrap; flex-shrink:0; }
+
+/* DATA ASSESSMENT CARDS */
+.da-cards { display:flex; align-items:stretch; gap:8px; padding:12px 16px; flex-shrink:0; background:var(--bg-secondary); }
+.da-card { flex:1; min-width:0; border:1px solid var(--border); border-radius:8px; padding:12px 14px; display:flex; flex-direction:column; gap:16px; background:var(--bg); }
+.da-card-title { font-size:12px; font-weight:600; font-family:'Inter',inherit; line-height:18px; color:var(--text-primary); display:flex; align-items:center; gap:4px; white-space:nowrap; }
+.da-card-body { display:flex; align-items:flex-end; justify-content:space-between; gap:8px; flex:1; }
+.da-card-value { font-size:20px; font-weight:600; font-family:'Inter',inherit; line-height:30px; color:var(--text-primary); }
+.da-card-sub { font-size:12px; font-family:'Inter',inherit; line-height:18px; color:var(--text-secondary); }
+.da-card-list { display:flex; flex-direction:column; gap:2px; flex:1; }
+.da-card-list-item { font-size:12px; color:var(--text-primary); display:flex; gap:4px; }
+.da-card-num { font-weight:600; }
+.da-cards-actions { display:flex; flex-direction:row; align-items:flex-end; justify-content:flex-end; gap:8px; flex:1; min-width:0; }
+.da-upload-btn { height:36px; padding:0 16px; border:none; border-radius:6px; font-size:14px; line-height:20px; font-family:'Inter',inherit; font-weight:600; background:#e6f2ff; color:#0074E6; cursor:pointer; white-space:nowrap; transition:background .1s; }
+.da-upload-btn:hover { background:#AED7FF; }
+.da-btn-outline { height:36px; padding:0 16px; border-radius:6px; cursor:pointer; font-size:14px; font-family:'Inter',inherit; font-weight:600; line-height:20px; background:var(--bg); color:var(--text-primary); border:1px solid var(--border); display:flex; align-items:center; white-space:nowrap; box-sizing:border-box; transition:background .1s; }
+.da-btn-outline:hover { background:var(--hover-bg); }
+.da-btn-primary,.da-btn-secondary { height:36px; padding:0 16px; border-radius:6px; cursor:pointer; font-size:14px; font-family:'Inter',inherit; font-weight:600; line-height:20px; display:flex; align-items:center; gap:8px; white-space:nowrap; box-sizing:border-box; transition:background .1s; }
+.da-btn-primary { background:#0074E6; color:#fff; border:none; }
+.da-btn-primary:hover { background:#004B94; }
+.da-btn-secondary { background:var(--bg); color:var(--text-primary); border:1.5px solid var(--border); }
+.da-btn-secondary:hover { background:var(--hover-bg); }
+/* DATA ASSESSMENT TABLE */
+.da-table { flex:1; display:flex; flex-direction:column; overflow:hidden; min-height:0; background:var(--bg); border-radius:10px; border:1px solid var(--border); }
+.da-col-hdr,.da-filter-row { display:grid; grid-template-columns:1fr 160px 160px 120px; min-width:500px; flex-shrink:0; }
+.da-col-hdr { height:40px; background:var(--bg); border-bottom:1px solid var(--border); }
+.da-filter-row { height:40px; background:var(--bg); border-bottom:1px solid var(--border); }
+.da-hdr { display:flex; align-items:center; padding:0 10px; font-size:12px; color:var(--text-secondary); height:100%; }
+.da-hdr.ra { justify-content:flex-end; }
+.da-fcell { display:flex; align-items:center; padding:0 10px; }
+.da-fcell.ra { justify-content:flex-end; }
+.da-row { display:grid; grid-template-columns:1fr 160px 160px 120px; height:40px; min-width:500px; border-top:1px solid var(--border-row); align-items:center; transition:background .1s; }
+.da-row:hover { background:var(--bg-hover); }
+.da-cat-row { display:grid; grid-template-columns:1fr 160px 160px 120px; height:40px; min-width:500px; border-top:1px solid var(--border); align-items:center; background:var(--bg-secondary); position:sticky; top:0; z-index:8; }
+.da-cell { display:flex; align-items:center; padding:0 10px 0 46px; font-size:12px; color:var(--text-primary); height:100%; overflow:hidden; }
+.da-cell.ra { justify-content:flex-end; font-variant-numeric:tabular-nums; padding-left:10px; }
+.da-cell.z { color:var(--text-tertiary); }
+.da-children-wrap { overflow:hidden; transition:height .25s cubic-bezier(.4,0,.2,1),opacity .2s ease; }
+.da-status { display:inline-flex; align-items:center; gap:12px; font-size:12px; font-family:'Inter',inherit; font-weight:400; white-space:nowrap; }
+.da-status-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.da-status.match .da-status-dot { background:#16a34a; box-shadow:0 0 0 4px #bbf7d0; }
+.da-status.diff   .da-status-dot { background:#dc2626; box-shadow:0 0 0 4px #fecaca; }
+.da-status.empty  .da-status-dot { background:#9ca3af; box-shadow:0 0 0 4px #e5e7eb; }
+.dark .da-status.match .da-status-dot { background:#22c55e; box-shadow:0 0 0 4px #14532d; }
+.dark .da-status.diff   .da-status-dot { background:#ef4444; box-shadow:0 0 0 4px #7f1d1d; }
+.dark .da-status.empty  .da-status-dot { background:#6b7280; box-shadow:0 0 0 4px #374151; }
+
+.xero-connect-screen {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-secondary);
+}
+
+#moveToWpDate::-webkit-calendar-picker-indicator { opacity: 0; width: 0; padding: 0; margin: 0; }
+#mwpCal { opacity: 0; transform: translateY(-4px); transition: opacity .15s ease, transform .15s ease; }
+.mwp-date-wrap:hover { background: #E5E7EB !important; }
+.dark .mwp-date-wrap:hover { background: var(--hover-bg) !important; }
+.mwp-btn-cancel { transition: background .1s; }
+.mwp-btn-cancel:hover { background: var(--hover-bg) !important; }
+.mwp-btn-confirm { transition: background .1s; }
+.mwp-btn-confirm:hover { background: #004B94 !important; }
+
+/* Move to WP modal animation */
+#moveToWpModal { transition: opacity .2s ease; opacity: 0; }
+#moveToWpModal.mwp-open { opacity: 1; }
+#moveToWpModal.mwp-close { opacity: 0; }
+#moveToWpModal > div { transition: transform .22s cubic-bezier(.4,0,.2,1), opacity .2s ease; transform: scale(0.94) translateY(8px); opacity: 0; }
+#moveToWpModal.mwp-open > div { transform: scale(1) translateY(0); opacity: 1; }
+#moveToWpModal.mwp-close > div { transform: scale(0.94) translateY(8px); opacity: 0; }
+
+/* Tab content transition */
+.panels-wrap, .da-cards, .xero-connect-screen {
+  transition: opacity .22s ease, transform .22s cubic-bezier(.4,0,.2,1);
+}
+.tab-exit {
+  opacity: 0; transform: translateX(-18px); pointer-events: none;
+}
+.tab-enter-pre {
+  opacity: 0; transform: translateX(18px); pointer-events: none;
+}
+.tab-enter {
+  opacity: 1; transform: translateX(0);
+}
+.xero-modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn .15s ease;
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.xero-modal-card {
+  background: var(--bg); border-radius: 16px;
+  padding: 40px 48px; width: 400px; max-width: 90vw;
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  animation: slideUp .2s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp { from { transform:translateY(16px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.xero-modal-logo { margin-bottom: 20px; }
+.xero-modal-title { font-size:16px; font-weight:700; font-family:'Inter',inherit; color:var(--text-primary); margin-bottom:8px; text-align:center; }
+.xero-modal-desc { font-size:13px; font-family:'Inter',inherit; font-weight:400; line-height:20px; color:var(--text-secondary); text-align:center; margin-bottom:20px; }
+.xero-modal-note { font-size:13px; font-family:'Inter',inherit; font-weight:700; line-height:20px; color:var(--text-primary); text-align:center; margin-bottom:28px; }
+.xero-modal-btn { height:40px; padding:0 32px; border:none; border-radius:8px; background:#13B5EA; color:#fff; font-size:14px; font-family:'Inter',inherit; font-weight:600; cursor:pointer; transition:background .1s; }
+.xero-modal-btn:hover { background:#0ea0d4; }
+
+.detail-view {
+  flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+  transition: opacity .2s ease, transform .22s cubic-bezier(.4,0,.2,1);
+}
+
+.detail-view.slide-in-pre {
+  opacity: 0; transform: translateX(18px);
+}
+
+.detail-view.slide-in {
+  opacity: 1; transform: translateX(0);
+}
+.chev-wrap {
+  display: inline-flex;
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.chev-wrap.collapsed { transform: rotate(-90deg); }
+
+.children-wrap {
+  overflow: hidden;
+  transition: height .25s cubic-bezier(.4,0,.2,1), opacity .2s ease;
+}
+
+.tcard-body { flex: 1; overflow-y: auto; overflow-x: clip; min-height: 0; min-width: 800px; }
+
+.tcard-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px; gap: 8px; flex-shrink: 0; overflow: hidden;
+}
+
+.tcard-head-left { display: flex; align-items: center; gap: 4px; flex: 1; min-width: 0; }
+.tcard-head-right { display: flex; flex-direction: row; align-items: center; gap: 4px; flex-shrink: 0; width: fit-content; justify-content: flex-end; }
+.tcard-head-right .move-btn { width: fit-content; flex-shrink: 0; text-align: left; justify-content: flex-start; white-space: nowrap; }
+
+.tcard-tabs { display: flex; gap: 4px; flex: 1; min-width: 0; }
+.tcard-tabs .ttab { flex: 1; justify-content: flex-start; }
+.tcard-tabs .ttab:first-child { max-width: 82px; }
+.tcard-tabs .ttab:last-child { max-width: 90px; }
+
+.tcard-date-wrap {
+  display: flex; align-items: center; gap: 4px;
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 0 8px; height: 24px; background: var(--bg);
+  cursor: pointer; flex: 1; min-width: 80px; max-width: 120px;
+  transition: var(--transition);
+}
+.tcard-date-wrap:hover { background: var(--hover-bg); }
+.tcard-date-inp {
+  border: none; outline: none; background: transparent;
+  font-size: 12px; font-family: 'Inter', inherit; font-weight: 400; line-height: 18px;
+  color: var(--text-primary); cursor: pointer; flex: 1; min-width: 0; width: 100%;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tcard-date-inp::-webkit-calendar-picker-indicator { opacity: 0; width: 0; padding: 0; margin: 0; }
+
+.tcard-title { font-size: 12px; font-weight: 600; line-height: 18px; font-family: 'Inter', inherit; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+.ttab {
+  font-size: 12px; font-family: 'Inter', inherit; font-weight: 600; line-height: 18px;
+  height: 24px; padding: 0 8px; border-radius: 6px;
+  cursor: pointer; border: none; outline: none; transition: all .12s;
+  display: flex; align-items: center; justify-content: flex-start;
+  flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  width: 100%; text-align: left;
+}
+
+.ttab.active { background: #e6f2ff; color: var(--accent-text); }
+.ttab:not(.active) { background: transparent; color: var(--text-secondary); }
+.ttab:not(.active):hover { background: var(--bg-focus); }
+
+/* COL HEADER */
+.col-hdr {
+  display: grid;
+  grid-template-columns: max-content 1fr 160px 160px 150px;
+  padding: 0;
+  height: 40px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);
+  flex-shrink: 0;
+  transition: var(--transition);
+  min-width: 800px;
+}
+
+.chdr { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; padding: 0 10px; height: 100%; }
+.chdr.code-hdr { padding: 0 6px 0 16px; width: 130px; min-width: 130px; max-width: 130px; }
+.chdr.ra { justify-content: flex-end; }
+
+/* FILTER ROW */
+.filter-row {
+  display: grid;
+  grid-template-columns: max-content 1fr 160px 160px 150px;
+  padding: 0; border-bottom: 1px solid var(--border); background: var(--bg);
+  height: 40px;
+  position: sticky; top: 40px; z-index: 10;
+  flex-shrink: 0;
+  transition: var(--transition);
+  min-width: 800px;
+}
+
+.fcell { display: flex; align-items: center; padding: 0 10px; }
+.fcell.code-cell { padding: 0 6px 0 16px; width: 130px; min-width: 130px; max-width: 130px; }
+.fcell.ra { justify-content: flex-end; }
+
+.finp-wrap {
+  position: relative; display: inline-flex; align-items: center;
+}
+
+.finp-icon {
+  position: absolute; right: 7px; top: 50%; transform: translateY(-50%);
+  color: var(--text-tertiary); pointer-events: none; flex-shrink: 0;
+}
+
+.finp {
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 0 24px 0 6px; font-size: 12px; line-height: 18px;
+  height: 24px; font-family: 'Inter', inherit; color: var(--text-secondary);
+  outline: none; background: var(--bg-input);
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.finp:focus { border-color: var(--border-focus); }
+.finp::placeholder { color: var(--text-tertiary); }
+
+/* TABLE BODY */
+#tableBody { position: relative; }
+
+/* CAT ROW */
+.cat-row {
+  display: grid;
+  grid-template-columns: max-content 1fr 160px 160px 150px;
+  align-items: center;
+  padding: 0 0 0 16px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border); height: 40px;
+  transition: var(--transition);
+  min-width: 800px;
+  position: relative;
+}
+
+.tcard-body > .cat-row:first-child,
+#tableBody > .cat-row:first-child {
+  border-top: none;
+}
+
+.cat-l { display: flex; align-items: center; gap: 6px; height: 100%; width: 100%; }
+
+.ainp::placeholder, .ninp::placeholder, .cinp::placeholder { color: var(--text-tertiary); }
+
+.cat-nm {
+  font-size: 12px; font-weight: 600; color: var(--text-primary);
+  outline: none; border-radius: 0; padding: 0 6px;
+  height: 100%; display: flex; align-items: center;
+  width: fit-content;
+}
+
+.cat-nm:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.cat-nm:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.cat-r { display: flex; align-items: center; gap: 3px; padding-right: 12px; }
+.cat-hover { display: flex; align-items: center; gap: 2px; opacity: 0; transition: opacity .15s; }
+.cat-row:hover .cat-hover { opacity: 1; }
+
+/* ACC ROW */
+.acc-row {
+  display: grid;
+  grid-template-columns: max-content 1fr 160px 160px 150px;
+  align-items: center; height: 40px;
+  border-top: 1px solid var(--border-row);
+  background: var(--bg); position: relative; transition: background .1s;
+  min-width: 800px;
+}
+
+.acc-row:hover { background: var(--bg-hover); }
+
+.acc-row.is-sel { background: var(--bg-selected); }
+.acc-row.is-sel::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent);
+}
+
+/* left meta */
+.lmeta {
+  display: flex; align-items: center; gap: 4px;
+  padding-right: 6px; height: 100%;
+}
+
+/* icon buttons */
+.ibtn {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent;
+  cursor: pointer; border-radius: 6px;
+  color: var(--text-tertiary); flex-shrink: 0;
+  padding: 0; transition: background .1s, color .1s;
+  position: relative;
+}
+
+.ibtn:hover { background: var(--hover-bg); color: var(--text-secondary); }
+.ibtn.add:hover { background: var(--hover-bg); color: var(--text-secondary); }
+.ibtn.del:hover { background: #FECDCA; color: var(--text-danger); }
+.ibtn.ho { opacity: 0; transition: opacity .15s, background .1s, color .1s; }
+.acc-row:hover .ibtn.ho { opacity: 1; }
+.cat-row:hover .ibtn.ho { opacity: 1; }
+
+/* framed button (View, Upload) */
+.fbtn {
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); cursor: pointer; font-family: inherit;
+  color: var(--text-secondary); transition: var(--transition);
+}
+
+.fbtn:hover { background: var(--hover-bg); }
+.fbtn.vbtn { font-size: 12px; font-weight: 600; padding: 0 8px; height: 24px; white-space: nowrap; }
+.fbtn.ubtn { width: 24px; height: 24px; min-width: 24px; color: var(--text-tertiary); padding: 0; }
+
+/* tooltip */
+.tt {
+  position: fixed;
+  background: #333333; color: white; font-size: 11px; font-family: inherit;
+  padding: 6px 9px; border-radius: 6px;
+  width: 120px;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: center;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0; transition: opacity .1s; z-index: 9999;
+}
+.tt.fit { width: auto; white-space: nowrap; }
+
+/* inputs */
+.cinp {
+  font-size: 12px; line-height: 18px; color: var(--text-secondary);
+  border: none; outline: none; background: transparent;
+  font-family: 'Inter', inherit; width: 80px; flex-shrink: 0; height: 100%;
+  padding: 0 6px;
+}
+
+.cinp:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+
+.acell { padding: 0; display: flex; align-items: center; overflow: hidden; height: 100%; }
+
+.ainp {
+  border: none; outline: none; background: transparent;
+  font-family: 'Inter', inherit; font-size: 12px; line-height: 18px; color: var(--text-primary); width: 100%;
+  overflow-x: auto; white-space: nowrap; text-overflow: clip;
+  padding: 0 10px; scrollbar-width: none; height: 100%;
+}
+
+.ainp::-webkit-scrollbar { display: none; }
+
+.ainp:focus { background: transparent; border-radius: 0; padding: 0 10px; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+
+.ncell { padding: 0; text-align: right; font-size: 12px; line-height: 18px; color: var(--text-primary); font-variant-numeric: tabular-nums; display: flex; align-items: center; justify-content: flex-end; height: 100%; }
+.ncell.z { color: var(--text-tertiary); }
+
+.ninp {
+  border: none; outline: none; background: transparent;
+  font-family: 'Inter', inherit; font-size: 12px; line-height: 18px; color: inherit; width: 100%; text-align: right;
+  padding: 0 10px; height: 100%;
+}
+
+.ninp:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); color: var(--text-primary); }
+
+.actn {
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: 4px; padding: 0 8px;
+  width: 150px; min-width: 150px;
+}
+
+.actn.fit {
+  width: auto; min-width: 0; padding: 0 8px;
+}
+
+
+
+/* TOTAL ROW */
+.tot-row {
+  display: grid; grid-template-columns: max-content 1fr 160px 160px 150px;
+  padding: 0; border-top: 1px solid var(--border); background: var(--bg-secondary);
+  height: 40px; flex-shrink: 0; transition: var(--transition); align-items: center;
+  min-width: 800px;
+}
+
+.tot-diff-cell { width: 150px; min-width: 150px; display: flex; align-items: center; padding: 0 10px; }
+.tot-lbl { font-size: 12px; color: var(--text-secondary); text-align: right; padding-right: 10px; }
+.tot-amt { font-size: 12px; font-weight: 500; color: var(--text-primary); text-align: right; padding: 0 10px; font-variant-numeric: tabular-nums; }
+
+.btn-text { flex:1; min-width:0; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; }
+
+.move-btn {
+  font-size: 12px; font-family: 'Inter', inherit; font-weight: 600; line-height: 18px;
+  height: 24px; padding: 0 8px;
+  border: none; border-radius: 6px;
+  color: #ffffff; background: #0074E6; cursor: pointer;
+  transition: background .15s, color .15s;
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+
+.move-btn:hover { background: #004B94; }
+
+.move-btn.loading {
+  background: #E5E7EB; color: var(--text-tertiary); cursor: default; pointer-events: none;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.move-btn .spinner {
+  display: none;
+  width: 11px; height: 11px;
+  border: 1.5px solid var(--text-tertiary);
+  border-top-color: var(--text-secondary);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  flex-shrink: 0;
+}
+
+.move-btn.loading .spinner { display: block; }
+
+.erow {
+  padding: 10px 18px 10px 60px; font-size: 12px;
+  color: var(--text-tertiary); font-style: italic; border-top: 1px solid var(--border-row);
+}
+
+.acc-row.row-enter {
+  animation: rowEnter .25s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.acc-row.row-exit {
+  animation: rowExit .2s cubic-bezier(.4,0,.2,1) forwards;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@keyframes rowEnter {
+  from { opacity: 0; transform: translateY(-6px); max-height: 0; }
+  to   { opacity: 1; transform: translateY(0);    max-height: 40px; }
+}
+
+@keyframes rowExit {
+  from { opacity: 1; transform: translateY(0);    max-height: 40px; }
+  to   { opacity: 0; transform: translateY(-6px); max-height: 0; }
+}
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: #333333; color: white; font-size: 12px; font-family: inherit;
+  padding: 6px 16px; border-radius: 6px;
+  opacity: 0; transition: all .2s; pointer-events: none; z-index: 9999; white-space: nowrap;
+}
+
+.toast {
+  position: fixed; top: 16px; right: 16px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  width: 280px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  opacity: 0; pointer-events: none;
+  transform: translateX(20px) scale(0.97);
+  transition: opacity .25s ease, transform .25s cubic-bezier(.4,0,.2,1);
+  z-index: 99999;
+}
+.toast.show { opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; }
+.toast.hide { opacity: 0; transform: translateX(20px) scale(0.97); }
+.toast-title { font-size: 13px; font-weight: 700; font-family: 'Inter', inherit; color: var(--text-primary); margin-bottom: 4px; }
+.toast-body { font-size: 12px; font-family: 'Inter', inherit; font-weight: 400; line-height: 18px; color: var(--text-secondary); margin-bottom: 12px; }
+.toast-actions { display: flex; align-items: center; gap: 8px; }
+.toast-btn-view { height: 30px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text-primary); font-size: 12px; font-family: 'Inter', inherit; font-weight: 600; cursor: pointer; transition: background .1s; }
+.toast-btn-view:hover { background: var(--hover-bg); }
+.toast-btn-close { height: 30px; padding: 0 14px; border-radius: 6px; border: none; background: transparent; color: var(--text-secondary); font-size: 12px; font-family: 'Inter', inherit; font-weight: 600; cursor: pointer; transition: color .1s; }
+.toast-btn-close:hover { color: var(--text-primary); }
+
+/* ── DETAIL VIEW ── */
+
+/* Clickable file sub */
+.dv-file-sub-link {
+  font-size: 11px; color: var(--text-secondary);
+  margin-top: 1px; cursor: pointer; transition: color .1s;
+}
+
+.dv-file-sub-link:hover { color: var(--accent); text-decoration: underline; }
+
+.dv-fields {
+  display: flex; align-items: flex-end; gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.dv-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
+.dv-fields.readonly { cursor: not-allowed; }
+.dv-fields.readonly * { cursor: not-allowed !important; }
+.dv-fields.readonly .dv-close,
+.dv-fields.readonly .dv-close * { cursor: pointer !important; }
+.dv-label { font-size: 11px; color: var(--text-tertiary); font-weight: 500; }
+
+.dv-input {
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 0 10px; font-size: 12px; line-height: 18px;
+  height: 24px; color: var(--text-primary); font-family: 'Inter', inherit;
+  background: var(--bg-input); outline: none;
+  transition: border-color .1s; width: 100%;
+  box-sizing: border-box;
+}
+
+.dv-input:read-only { cursor: not-allowed; }
+.dv-input:read-only:focus { border-color: var(--border); }
+
+.dv-input-wrap {
+  display: flex; align-items: center;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg-input); transition: border-color .1s;
+  height: 24px; box-sizing: border-box;
+}
+
+.dv-input-wrap:focus-within { border-color: var(--border-focus); }
+
+.dv-prefix {
+  font-size: 12px; color: var(--text-secondary);
+  padding: 0 8px; white-space: nowrap; flex-shrink: 0;
+}
+
+.dv-input-wrap .dv-input {
+  border: none; padding: 0 10px 0 0; height: 100%;
+  background: transparent;
+}
+
+.dv-input-wrap .dv-input:focus { border-color: transparent; }
+
+.dv-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.dv-close {
+  flex-shrink: 0; color: var(--text-tertiary);
+}
+
+.dv-body {
+  flex: 1; display: flex; min-height: 0; overflow: hidden;
+  transition: opacity .18s ease, transform .2s cubic-bezier(.4,0,.2,1);
+}
+
+.dv-body.dv-slide-exit {
+  opacity: 0; transform: translateX(-16px); pointer-events: none;
+}
+
+.dv-body.dv-slide-enter-from {
+  opacity: 0; transform: translateX(16px);
+  transition: none;
+}
+
+.dv-files {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border);
+  min-height: 0;
+}
+
+.dv-files-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+
+.dv-files-title { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+
+.dv-add-btn {
+  display: flex; align-items: center; gap: 4px; font-weight: 500;
+}
+
+.dv-file-list { flex: 1; overflow-y: auto; }
+
+.dv-file-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-row);
+  cursor: pointer; transition: background .1s;
+}
+
+.dv-file-item:hover { background: var(--bg-hover); }
+.dv-file-item.active { background: var(--bg-selected); }
+
+.dv-file-badge {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+
+.dv-file-badge.pdf { background: #fee2e2; color: #dc2626; }
+.dv-file-badge.xls { background: #dcfce7; color: #16a34a; }
+.dv-file-badge.doc { background: #e6f2ff; color: #0074E6; }
+.dv-file-badge.other { background: var(--bg-secondary); color: var(--text-secondary); }
+
+.dv-file-info { min-width: 0; flex: 1; }
+.dv-file-name { font-size: 12px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dv-file-sub { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+
+.dv-preview {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 16px; background: var(--bg-secondary); min-width: 0;
+}
+
+.dv-preview-inner {
+  width: 100%; height: 100%;
+  background: var(--bg); border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.dv-preview-label { font-size: 14px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="main">
+
+    <!-- Page tabs -->
+    <div class="page-tabs">
+      <div class="ptab" onclick="setPtab(this)">Overview</div>
+      <div class="ptab" onclick="setPtab(this)">Intake</div>
+      <div class="ptab" onclick="setPtab(this)">Data Assessment</div>
+      <div class="ptab active" onclick="setPtab(this)">Onboarding</div>
+      <div style="flex:1"></div>
+      <div style="padding:0 12px">
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">
+          <svg id="iconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DA Cards (shown only on Data Assessment tab) -->
+      <div class="da-cards" id="daCards" style="display:none">
+        <div class="da-card" style="flex:0 0 280px;width:280px">
+          <div class="da-card-title">Document Uploaded</div>
+          <div class="da-card-body">
+            <div class="da-card-list">
+              <div class="da-card-list-item"><span class="da-card-num">1</span> Financial Report</div>
+              <div class="da-card-list-item"><span class="da-card-num">1</span> Supporting</div>
+            </div>
+            <button class="da-upload-btn">Upload</button>
+          </div>
+        </div>
+        <div class="da-card" style="flex:0 0 200px;width:200px">
+          <div class="da-card-title">Confidence Score</div>
+          <div class="da-card-body"><div><div class="da-card-value">20%</div><div class="da-card-sub">Based on uploaded data</div></div></div>
+        </div>
+        <div class="da-card" style="flex:0 0 200px;width:200px">
+          <div class="da-card-title" style="color:var(--accent)">Recommendations
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="da-card-body"><div><div class="da-card-value">12</div><div class="da-card-sub">Action item(s)</div></div><button class="da-btn-outline">View</button></div>
+        </div>
+        <div class="da-card" style="flex:0 0 200px;width:200px">
+          <div class="da-card-title">Last Assessment</div>
+          <div class="da-card-body"><div><div class="da-card-value">7 Apr, 13.01</div><div class="da-card-sub">2 documents assessed</div></div></div>
+        </div>
+        <div class="da-cards-actions">
+          <button class="da-btn-primary" onclick="applyDAToConversion()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Run
+          </button>
+          <button class="da-btn-secondary" onclick="openXeroModal()">Move to Onboarding</button>
+        </div>
+      </div>
+
+      <div class="panels-wrap" style="flex:1;min-height:0">
+
+      <!-- tcard collapsed tab (left) -->
+      <div class="tcard-tab" id="tcardTab" onclick="minimizePanel('tcard')" style="display:none">
+        <span class="panel-tab-label">Conversion &amp; Trial Balance</span>
+      </div>
+
+      <div class="table-area" id="tableArea">
+        <div class="tcard">
+
+          <div class="tcard-head">
+            <div class="tcard-head-left">
+              <div class="tcard-date-wrap">
+                <input type="date" class="tcard-date-inp" id="tcardDate" value="2025-12-31">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="tcard-tabs">
+                <button class="ttab active" onclick="setMode('conversion',this)">Conversion</button>
+                <button class="ttab" onclick="setMode('trial',this)">Trial Balance</button>
+              </div>
+            </div>
+            <div class="tcard-head-right">
+              <button class="move-btn" id="moveToWpBtn" onclick="moveToWP()"><span class="btn-text">Move to WP</span><span class="spinner"></span></button>
+              <button class="ibtn add" id="tcardMinBtn" onclick="minimizePanel('tcard')" style="color:var(--text-tertiary)">
+                <svg id="tcardMinIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg>
+                <span class="tt fit" id="tcardMinTip">Minimize</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Col headers -->
+          <div class="tcard-scroll" id="tcardScroll">
+
+          <!-- Trial Balance combined header (2 rows) -->
+          <div class="tb-month-hdr" id="tbMonthHdr" style="display:none">
+            <!-- Row 1: Code, Account span 2 rows; month labels span 2 cols each -->
+            <div class="tb-month-span code-col" style="grid-row:span 2; border-bottom:none; border-right:1px solid var(--border)">Code</div>
+            <div class="tb-month-span acct-col" style="grid-row:span 2; border-bottom:none">Account</div>
+            <div class="tb-month-span" style="grid-column:span 2; border-bottom:1px solid var(--border)">Jan '26</div>
+            <div class="tb-month-span" style="grid-column:span 2; border-bottom:1px solid var(--border)">Feb '26</div>
+            <div class="tb-month-span empty-col" style="grid-row:span 2; border-bottom:none"></div>
+            <!-- Row 2: sub-labels for balance columns -->
+            <div class="tb-sub-cell xero-col" id="tbXeroSub1">
+              <button class="tb-xero-toggle" onclick="toggleXero()">
+                <svg class="xero-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                <span class="tt">Hide Xero Balance</span>
+              </button>
+              Xero Balance
+            </div>
+            <div class="tb-sub-cell wp-col1">
+              <button class="tb-xero-toggle xero-show-btn" onclick="toggleXero()" style="display:none">
+                <svg class="xero-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="tt">Show Xero Balance</span>
+              </button>
+              WP Balance
+            </div>
+            <div class="tb-sub-cell xero-col" id="tbXeroSub2">
+              <button class="tb-xero-toggle" onclick="toggleXero()">
+                <svg class="xero-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                <span class="tt">Hide Xero Balance</span>
+              </button>
+              Xero Balance
+            </div>
+            <div class="tb-sub-cell wp-col2">
+              <button class="tb-xero-toggle xero-show-btn" onclick="toggleXero()" style="display:none">
+                <svg class="xero-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="tt">Show Xero Balance</span>
+              </button>
+              WP Balance
+            </div>
+          </div>
+
+          <!-- tb-sub-hdr kept for JS compat but hidden via CSS -->
+          <div class="tb-sub-hdr" id="tbSubHdr" style="display:none"></div>
+
+          <div class="col-hdr" id="colHdr">
+            <div class="chdr code-hdr">Code</div>
+            <div class="chdr">Account</div>
+            <div class="chdr ra" id="hdrCol3"><span id="hdrCol3Text">Debit</span></div>
+            <div class="chdr ra" id="hdrCol4"><span id="hdrCol4Text">Credit</span></div>
+            <div></div>
+          </div>
+
+          <!-- Filter row -->
+          <div class="filter-row">
+            <div class="fcell code-cell">
+              <div class="finp-wrap">
+                <input class="finp" style="width:90px" placeholder="Find..." id="fCode" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="fcell">
+              <div class="finp-wrap" style="width:100%">
+                <input class="finp" style="width:100%" placeholder="Find..." id="fName" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <!-- Conversion only: Debit / Credit -->
+            <div class="fcell ra conv-only">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fDebit" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="fcell ra conv-only">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fCredit" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <!-- Trial Balance only: Jan Xero / Jan WP / Feb Xero / Feb WP -->
+            <div class="fcell ra tb-only xero-col" style="display:none">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fJanXero" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="fcell ra tb-only" style="display:none">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fJanWP" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="fcell ra tb-only xero-col" style="display:none">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fFebXero" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="fcell ra tb-only" style="display:none">
+              <div class="finp-wrap">
+                <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="fFebWP" oninput="applyFilter()">
+                <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div></div>
+          </div>
+
+          <div class="tcard-body">
+            <div id="tableBody"></div>
+          </div>
+
+          <!-- Conversion tot-row -->
+          <div class="tot-row" id="totRowConversion">
+            <div class="tot-lbl" style="grid-column:1/3">Total</div>
+            <div class="tot-amt" id="totD">0.00</div>
+            <div class="tot-amt" id="totC">0.00</div>
+            <div class="tot-diff-cell">
+              <span class="tot-amt" id="totDiff" style="color:var(--text-tertiary);padding:0">0.00</span>
+            </div>
+          </div>
+
+          <!-- Trial Balance tot-row -->
+          <div class="tot-row trial-tot" id="totRowTB" style="display:none">
+            <div class="tot-lbl" style="grid-column:1/3">Total</div>
+            <div class="tot-amt xero-col" id="totJanX">0.00</div>
+            <div class="tot-amt" id="totJanWP">0.00</div>
+            <div class="tot-amt xero-col" id="totFebX">0.00</div>
+            <div class="tot-amt" id="totFebWP">0.00</div>
+            <div style="width:150px;min-width:150px;"></div>
+          </div>
+
+          </div><!-- /tcard-scroll -->
+
+          <!-- Detail View (replaces tcard-scroll when View is clicked) -->
+          <div class="detail-view" id="detailView" style="display:none">
+
+            <div class="dv-fields">
+              <button class="dv-close ibtn" onclick="closeDetailView()" aria-label="Back" style="align-self:flex-end;margin-bottom:2px;flex-shrink:0">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+              </button>
+              <div id="dvFieldsAccount" style="display:flex;flex:1;gap:10px;align-items:flex-end;min-width:0">
+                <div class="dv-field">
+                  <label class="dv-label">Code</label>
+                  <input class="dv-input" id="dvCode" placeholder="0-000" spellcheck="false">
+                </div>
+                <div class="dv-field">
+                  <label class="dv-label">Account</label>
+                  <input class="dv-input" id="dvAccount" placeholder="Account name" spellcheck="false">
+                </div>
+                <div class="dv-field">
+                  <label class="dv-label">Debit</label>
+                  <div class="dv-input-wrap">
+                    <span class="dv-prefix">Rp</span>
+                    <input class="dv-input dv-num" id="dvDebit" placeholder="0.00">
+                  </div>
+                </div>
+                <div class="dv-field">
+                  <label class="dv-label">Credit</label>
+                  <div class="dv-input-wrap">
+                    <span class="dv-prefix">Rp</span>
+                    <input class="dv-input dv-num" id="dvCredit" placeholder="0.00">
+                  </div>
+                </div>
+              </div>
+              <div id="dvFieldsCategory" style="display:none;flex:1;min-width:0">
+                <label class="dv-label">Category</label>
+                <input class="dv-input" id="dvCategory" placeholder="Category name" spellcheck="false" style="width:100%">
+              </div>
+            </div>
+
+            <div class="dv-body">
+              <div class="dv-files">
+                <div class="dv-files-head">
+                  <span class="dv-files-title" id="dvFilesTitle">Files (0)</span>
+                  <button class="fbtn vbtn dv-add-btn" onclick="dvAddFile()">
+                    Add
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  </button>
+                </div>
+                <div class="dv-file-list" id="dvFileList"></div>
+              </div>
+
+              <div class="dv-preview">
+                <div class="dv-preview-inner" id="dvPreview">
+                  <span class="dv-preview-label">Document View</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Resizer -->
+      <div class="resizer" id="resizer"></div>
+
+      <!-- Working Paper Panel -->
+      <div class="wp-wrapper" id="wpWrapper">
+      <div class="wp-panel">
+        <div class="wp-head">
+          <span class="wp-title" style="flex:1;min-width:0">Working Paper</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button class="fbtn vbtn" style="font-weight:500">Export</button>
+            <button class="wp-push-btn">Push to Xero</button>
+            <button class="ibtn add" id="wpMinBtn" onclick="minimizePanel('wp')" style="color:var(--text-tertiary)">
+              <svg id="wpMinIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg>
+              <span class="tt fit" id="wpMinTip">Minimize</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Formula bar -->
+        <div class="wp-formula-bar">
+          <div class="wp-cell-ref" id="wpCellRef">A1</div>
+          <div class="wp-cell-sep"></div>
+          <div class="wp-fx">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-secondary);flex-shrink:0"><path d="m4 7 4 10 4-7 4 7 4-10"/></svg>
+          </div>
+        </div>
+
+        <!-- Spreadsheet -->
+        <div class="wp-sheet-wrap">
+          <div class="wp-grid" id="wpGrid"></div>
+        </div>
+
+        <!-- Sheet tabs -->
+        <div class="wp-tabs-bar">
+          <div class="wp-tabs" id="wpTabs"></div>
+          <button class="wp-tab-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+      </div><!-- /wp-wrapper -->
+
+      <!-- wp collapsed tab (outside wrapper, same level as tcard-tab) -->
+      <div class="wp-tab-strip" id="wpTab" onclick="minimizePanel('wp')" style="display:none">
+        <span class="wp-tab-strip-label">Working Paper</span>
+      </div>
+
+      <!-- Data Assessment Table -->
+      <div class="da-table" id="daTable" style="display:none">
+        <div class="da-col-hdr">
+          <div class="da-hdr">Account</div>
+          <div class="da-hdr ra">Report Balance</div>
+          <div class="da-hdr ra">Supporting Balance</div>
+          <div class="da-hdr">Status</div>
+        </div>
+        <div class="da-filter-row">
+          <div class="da-fcell">
+            <div class="finp-wrap" style="width:100%">
+              <input class="finp" style="width:100%" placeholder="Find..." id="daFName" oninput="renderDA()">
+              <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+          </div>
+          <div class="da-fcell ra">
+            <div class="finp-wrap">
+              <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="daFReport" oninput="renderDA()">
+              <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+          </div>
+          <div class="da-fcell ra">
+            <div class="finp-wrap">
+              <input class="finp" style="width:120px;padding-right:24px;text-align:right" placeholder="Find..." id="daFSupporting" oninput="renderDA()">
+              <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+          </div>
+          <div class="da-fcell">
+            <div class="finp-wrap" style="width:100%">
+              <input class="finp" style="width:100%" placeholder="Find..." id="daFStatus" oninput="renderDA()">
+              <svg class="finp-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="tcard-body" id="daBody"></div>
+      </div>
+
+      </div><!-- /panels-wrap -->
+
+    </div>
+  </div>
+</div>
+
+<!-- Move to WP Modal -->
+<div id="moveToWpModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(51,51,51,0.4);display:none;align-items:center;justify-content:center;">
+  <div style="background:var(--bg);border-radius:8px;padding:16px;width:440px;max-width:92vw;box-shadow:0 8px 32px rgba(0,0,0,0.18);" onclick="event.stopPropagation()">
+    <div style="font-size:14px;font-weight:600;font-family:'Inter',inherit;color:var(--text-primary);line-height:20px;margin-bottom:2px;">Move to Working Paper</div>
+    <div style="font-size:14px;font-family:'Inter',inherit;font-weight:400;line-height:20px;color:var(--text-secondary);margin-bottom:16px;">Select a conversion date to use as the opening balance date in the working paper and manual journal.</div>
+    <div style="font-size:13px;font-weight:600;font-family:'Inter',inherit;color:var(--text-primary);margin-bottom:8px;">Conversion Date</div>
+    <div style="position:relative;">
+      <div class="mwp-date-wrap" id="mwpDateTrigger" onclick="toggleMwpCal()" style="display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;padding:0 8px;height:36px;background:var(--bg);gap:6px;cursor:pointer;transition:background .1s;">
+        <span id="mwpDateDisplay" style="flex:1;font-size:14px;font-family:'Inter',inherit;color:var(--text-tertiary);">dd/mm/yyyy</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--text-tertiary);flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <!-- Custom Calendar -->
+      <div id="mwpCal" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg);border:1px solid var(--border);border-radius:8px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:12px;min-width:280px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <button onclick="mwpNavMonth(-1)" class="mwp-btn-cancel" style="width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span id="mwpCalTitle" style="font-size:14px;font-weight:600;font-family:'Inter',inherit;color:var(--text-primary);"></span>
+          <button onclick="mwpNavMonth(1)" class="mwp-btn-cancel" style="width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;" id="mwpCalHeaders"></div>
+        <div id="mwpCalDays" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"></div>
+      </div>
+    </div>
+    <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:flex-end;gap:10px;">
+      <button onclick="closeMoveToWpModal()" class="mwp-btn-cancel" style="height:36px;padding:0 16px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text-primary);font-size:14px;line-height:20px;font-family:'Inter',inherit;font-weight:600;cursor:pointer;">Cancel</button>
+      <button onclick="confirmMoveToWP()" class="mwp-btn-confirm" style="height:36px;padding:0 16px;border-radius:6px;border:none;background:#0074E6;color:#fff;font-size:14px;line-height:20px;font-family:'Inter',inherit;font-weight:600;cursor:pointer;">Move to WP</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ── SVG ICON STRINGS ── */
+const IC = {
+  chevDown: `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`,
+  grip: '',
+  plus: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>`,
+  trash: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
+  upload: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+};
+
+function toggleTheme(){
+  const dark = document.body.classList.toggle('dark');
+  document.getElementById('iconSun').style.display = dark ? 'block' : 'none';
+  document.getElementById('iconMoon').style.display = dark ? 'none' : 'block';
+  localStorage.setItem('theme', dark ? 'dark' : 'light');
+}
+
+// Restore theme on load
+(function(){
+  const saved = localStorage.getItem('theme');
+  if(saved === 'dark'){
+    document.body.classList.add('dark');
+    document.addEventListener('DOMContentLoaded', () => {
+      const sun = document.getElementById('iconSun');
+      const moon = document.getElementById('iconMoon');
+      if(sun) sun.style.display = 'block';
+      if(moon) moon.style.display = 'none';
+    });
+  }
+})();
+
+let uid = 400;
+let fCode='', fName='', fDebit='', fCredit='', fJanXero='', fJanWP='', fFebXero='', fFebWP='';
+
+const data = [
+  { id:'g1', type:'cat', code:'1-100', name:'Kas dan Bank', expanded:true, children:[
+    { id:'r1', type:'row', code:'1-101', name:'Bank BCA - Cibis', debit:100000000, credit:0, sel:true },
+    { id:'r2', type:'row', code:'1-102', name:'Bank BCA - Kemang', debit:80000000, credit:0 },
+    { id:'r3', type:'row', code:'1-103', name:'Petty Cash - Cibis', debit:50000000, credit:0 },
+    { id:'r4', type:'row', code:'1-104', name:'Petty Cash - Kemang', debit:20000000, credit:0 },
+  ]},
+  { id:'c1', type:'cat', name:'Aset Lancar', expanded:true, children:[
+    { id:'r5', type:'row', code:'1-110', name:'Piutang Usaha', debit:150000000, credit:0 },
+    { id:'r6', type:'row', code:'1-120', name:'Cadangan Kerugian Piutang', debit:0, credit:50000000 },
+    { id:'r7', type:'row', code:'1-130', name:'Persediaan', debit:100000000, credit:0 },
+    { id:'r8', type:'row', code:'1-140', name:'Biaya Bayar di Muka', debit:20000000, credit:0 },
+  ]},
+  { id:'c2', type:'cat', name:'Aset Tetap', expanded:true, children:[
+    { id:'r9', type:'row', code:'2-100', name:'Peralatan Medis', debit:500000000, credit:0 },
+    { id:'r10', type:'row', code:'2-110', name:'Akumulasi Penyusutan', debit:0, credit:100000000 },
+  ]},
+  { id:'c3', type:'cat', name:'Kewajiban Lancar', expanded:true, children:[
+    { id:'r11', type:'row', code:'3-100', name:'Hutang Usaha', debit:0, credit:50000000 },
+    { id:'r12', type:'row', code:'3-110', name:'Hutang Perpajakan', debit:0, credit:200000000 },
+  ]},
+  { id:'c5', type:'cat', name:'Kewajiban Jangka Panjang', expanded:true, children:[
+    { id:'r14', type:'row', code:'3-120', name:'Hutang Pihak Berelasi', debit:0, credit:0 },
+  ]},
+  { id:'c4', type:'cat', name:'Modal', expanded:false, children:[
+    { id:'r13', type:'row', code:'4-100', name:'Modal Pemilik', debit:0, credit:870000000 },
+  ]},
+];
+
+function nid(){ return 'n'+(++uid); }
+function fmt(n){ return n===0?'0.00':n.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function pfmt(s){ return parseFloat((s+'').replace(/\./g,'').replace(',','.').replace(/[^0-9.-]/g,''))||0; }
+
+function showToast(m, type) {
+  const old = document.getElementById('toast');
+  if (old) old.remove();
+
+  const isDark = document.body.classList.contains('dark');
+  const bg       = isDark ? '#333333' : '#ffffff';
+  const border   = isDark ? '#444444' : '#e5e7eb';
+  const titleClr = isDark ? '#f9fafb' : '#111827';
+  const bodyClr  = isDark ? '#9ca3af' : '#6b7280';
+  const btnBg    = isDark ? '#333333' : '#fff';
+  const btnBrdr  = isDark ? '#555555' : '#e5e7eb';
+  const btnHover = isDark ? '#444444' : '#e5e7eb';
+  const closeClr = isDark ? '#9ca3af' : '#6b7280';
+
+  const t = document.createElement('div');
+  t.id = 'toast';
+  t.style.cssText = `
+    position:absolute;
+    top:16px;right:16px;
+    background:${bg};border:1px solid ${border};
+    border-radius:8px;padding:16px;
+    width:${type==='wp'?'400px':'280px'};
+    box-shadow:0 8px 24px rgba(0,0,0,0.15);
+    z-index:2147483647;opacity:0;
+    transform:translateX(20px);
+    transition:opacity 0.25s ease,transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    font-family:'Inter',sans-serif;pointer-events:auto;
+  `;
+
+  if (type === 'wp') {
+    t.innerHTML = `
+      <div style="display:flex;flex-direction:row;gap:16px;align-items:flex-start;">
+        <div style="display:flex;align-items:center;justify-content:center;width:fit-content;height:20px;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#16a34a"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="display:flex;flex-direction:column;flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:600;color:${titleClr};line-height:20px;margin-bottom:2px;">Success moved to WP</div>
+          <div style="font-size:14px;font-weight:400;line-height:20px;color:${bodyClr};margin-bottom:16px;">All balances in the Conversion tab has been moved to working paper.</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button onmousedown="closeToast();openXeroModal()" onmouseover="this.style.background='${btnHover}'" onmouseout="this.style.background='${btnBg}'" style="height:36px;padding:0 16px;border-radius:6px;border:1px solid ${btnBrdr};background:${btnBg};color:${titleClr};font-size:14px;font-family:'Inter',sans-serif;font-weight:600;line-height:20px;cursor:pointer;transition:background .1s;">View</button>
+            <button onmousedown="closeToast()" onmouseover="this.style.background='${btnHover}'" onmouseout="this.style.background='transparent'" style="height:36px;padding:0 16px;border-radius:6px;border:none;background:transparent;color:${closeClr};font-size:14px;font-family:'Inter',sans-serif;font-weight:600;line-height:20px;cursor:pointer;transition:background .1s;">Close</button>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    t.innerHTML = `<div style="font-size:12px;font-weight:500;color:${titleClr};line-height:18px;">${m}</div>`;
+  }
+
+  document.body.appendChild(t);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(0)';
+  }));
+  clearTimeout(t._t);
+  t._t = setTimeout(() => closeToast(), type === 'wp' ? 5000 : 2000);
+}
+
+function closeToast() {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.style.opacity = '0';
+  t.style.transform = 'translateX(20px)';
+  clearTimeout(t._t);
+  setTimeout(() => t.remove(), 300);
+}
+
+function find(arr,id){
+  for(const n of arr){ if(n.id===id)return n; if(n.children){const f=find(n.children,id);if(f)return f;} }
+  return null;
+}
+
+function remove(arr,id){
+  for(let i=0;i<arr.length;i++){
+    if(arr[i].id===id)return arr.splice(i,1)[0];
+    if(arr[i].children){const r=remove(arr[i].children,id);if(r)return r;}
+  }
+  return null;
+}
+
+function insertAfter(arr,tid,node){
+  for(let i=0;i<arr.length;i++){
+    if(arr[i].id===tid){arr.splice(i+1,0,node);return true;}
+    if(arr[i].children&&insertAfter(arr[i].children,tid,node))return true;
+  }
+  return false;
+}
+
+function addRowToParent(pid){
+  const p=find(data,pid);
+  if(!p)return;
+  if(!p.children)p.children=[];
+  p.expanded=true;
+  const newId = nid();
+  p.children.unshift({id:newId,type:'row',code:'',name:'',debit:0,credit:0});
+  render();
+  requestAnimationFrame(()=>{
+    const el=document.querySelector(`.acc-row[data-id="${newId}"]`);
+    if(el) el.classList.add('row-enter');
+  });
+}
+
+function deleteNode(id){
+  const n=find(data,id);
+  const nm=n?n.name:'Item';
+  const el=document.querySelector(`.acc-row[data-id="${id}"], .cat-row[data-id="${id}"]`);
+  if(el){
+    el.classList.add('row-exit');
+    setTimeout(()=>{ remove(data,id); render() }, 200);
+  } else {
+    remove(data,id); render()
+  }
+}
+
+function addCategory(){
+  data.push({id:nid(),type:'cat',name:'',expanded:true,children:[]});
+  render();
+}
+
+function toggle(id){
+  const n=find(data,id);
+  if(!n)return;
+  const chev=document.querySelector(`[data-id="${id}"] .chev-wrap`);
+  const wrap=document.querySelector(`.children-wrap[data-children="${id}"]`);
+  const expanding=!n.expanded;
+  n.expanded=expanding;
+  if(chev) chev.classList.toggle('collapsed',!expanding);
+  if(wrap){
+    if(expanding){
+      wrap.style.height='0';
+      wrap.style.opacity='0';
+      requestAnimationFrame(()=>{
+        const h=wrap.scrollHeight+'px';
+        wrap.style.height=h;
+        wrap.style.opacity='1';
+        wrap.addEventListener('transitionend',()=>{
+          wrap.style.height='auto';
+        },{once:true});
+      });
+    } else {
+      wrap.style.height=wrap.scrollHeight+'px';
+      requestAnimationFrame(()=>{
+        wrap.style.height='0';
+        wrap.style.opacity='0';
+      });
+    }
+  }
+  setTimeout(()=>render(),260);
+}
+
+function upd(id,field,val){
+  const n=find(data,id); if(!n)return;
+  if(field==='debit'||field==='credit')n[field]=pfmt(val);
+  else n[field]=val.trim();
+  updateTotals();
+  // Sync detail view if it's showing this row
+  if(dvNodeId===id){
+    const map={debit:'dvDebit',credit:'dvCredit',code:'dvCode',name:'dvAccount'};
+    const elId=map[field];
+    if(elId){
+      const el=document.getElementById(elId);
+      if(el&&document.activeElement!==el){
+        el.value=(field==='debit'||field==='credit')?(n[field]===0?'':fmt(n[field])):n[field]||'';
+      }
+    }
+  }
+}
+
+function syncRowInput(id, field) {
+  const n = find(data, id); if (!n) return;
+  const row = document.querySelector(`[data-id="${id}"]`); if (!row) return;
+  if (field === 'code') {
+    const inp = row.querySelector('.cinp');
+    if (inp && document.activeElement !== inp) inp.value = n.code || '';
+  } else if (field === 'name') {
+    const inp = row.querySelector('.ainp');
+    if (inp && document.activeElement !== inp) inp.value = n.name || '';
+  } else if (field === 'debit' || field === 'credit') {
+    const inputs = row.querySelectorAll('.ninp');
+    const idx = field === 'debit' ? 0 : 1;
+    const inp = inputs[idx];
+    if (inp && document.activeElement !== inp) {
+      inp.value = n[field] === 0 ? '' : fmt(n[field]);
+      inp.closest('.ncell').className = 'ncell' + (n[field] === 0 ? ' z' : '');
+    }
+  }
+}
+
+
+function rowOk(n){
+  if(!fCode&&!fName&&!fDebit&&!fCredit&&!fJanXero&&!fJanWP&&!fFebXero&&!fFebWP)return true;
+  if(currentMode==='trial'){
+    return (!fCode||(n.code||'').toLowerCase().includes(fCode))
+      &&(!fName||(n.name||'').toLowerCase().includes(fName))
+      &&(!fJanXero||fmtTB(getXeroForMonth(n,'jan')).toLowerCase().includes(fJanXero))
+      &&(!fJanWP||fmtTB(getWPForMonth(n,'jan')).toLowerCase().includes(fJanWP))
+      &&(!fFebXero||fmtTB(getXeroForMonth(n,'feb')).toLowerCase().includes(fFebXero))
+      &&(!fFebWP||fmtTB(getWPForMonth(n,'feb')).toLowerCase().includes(fFebWP));
+  }
+  return (!fCode||(n.code||'').toLowerCase().includes(fCode))
+    &&(!fName||(n.name||'').toLowerCase().includes(fName))
+    &&(!fDebit||fmt(n.debit||0).includes(fDebit))
+    &&(!fCredit||fmt(n.credit||0).includes(fCredit));
+}
+
+function applyFilter(){
+  fCode=document.getElementById('fCode').value.toLowerCase();
+  fName=document.getElementById('fName').value.toLowerCase();
+  fDebit=document.getElementById('fDebit').value.toLowerCase();
+  fCredit=document.getElementById('fCredit').value.toLowerCase();
+  fJanXero=(document.getElementById('fJanXero')?.value||'').toLowerCase();
+  fJanWP=(document.getElementById('fJanWP')?.value||'').toLowerCase();
+  fFebXero=(document.getElementById('fFebXero')?.value||'').toLowerCase();
+  fFebWP=(document.getElementById('fFebWP')?.value||'').toLowerCase();
+  render();
+}
+
+// ── DATA ASSESSMENT ──
+// Pre-populated DA data: Report Balance = debit or credit per account type
+// Supporting Balance: mostly same as Report, ~2% diff on r2, r6, r9, r12
+const daData = {
+  r1:  { report: 100000000, supporting: 100000000 },  // match
+  r2:  { report: 80000000,  supporting: 81600000  },  // ~2% diff
+  r3:  { report: 50000000,  supporting: 50000000  },  // match
+  r4:  { report: 20000000,  supporting: 20000000  },  // match
+  r5:  { report: 150000000, supporting: 150000000 },  // match
+  r6:  { report: 50000000,  supporting: 51000000  },  // ~2% diff
+  r7:  { report: 100000000, supporting: 100000000 },  // match
+  r8:  { report: 20000000,  supporting: 20000000  },  // match
+  r9:  { report: 500000000, supporting: 510000000 },  // ~2% diff
+  r10: { report: 100000000, supporting: 100000000 },  // match
+  r11: { report: 50000000,  supporting: 50000000  },  // match
+  r12: { report: 200000000, supporting: 204000000 },  // ~2% diff
+  r14: { report: 0,         supporting: 0          },  // match
+  r13: { report: 870000000, supporting: 870000000 },  // match
+};
+const daExpanded = {};
+const DEBIT_CATS = new Set(['g1','c1','c2']);
+
+function getCatForNode(nodeId) {
+  for (const cat of data) {
+    if (!cat.children) continue;
+    for (const child of cat.children) {
+      if (child.id === nodeId) return cat.id;
+      if (child.children) for (const sub of child.children) if (sub.id === nodeId) return cat.id;
+    }
+  }
+  return null;
+}
+
+function isDebitAccount(nodeId) { return DEBIT_CATS.has(getCatForNode(nodeId)); }
+
+function getDAStatus(report, supporting) {
+  if (report === 0 && supporting === 0) return 'empty';
+  return Math.abs(report - supporting) < 1 ? 'match' : 'diff';
+}
+
+function toggleDA(id) {
+  const expanding = daExpanded[id] === false;
+  daExpanded[id] = expanding;
+  const chev = document.querySelector(`.da-cat-row[data-da-id="${id}"] .chev-wrap`);
+  const wrap = document.querySelector(`.da-children-wrap[data-da-children="${id}"]`);
+  if (chev) chev.classList.toggle('collapsed', !expanding);
+  if (wrap) {
+    if (expanding) {
+      wrap.style.height = '0'; wrap.style.opacity = '0';
+      requestAnimationFrame(() => {
+        wrap.style.height = wrap.scrollHeight + 'px'; wrap.style.opacity = '1';
+        wrap.addEventListener('transitionend', () => { wrap.style.height = 'auto'; }, { once: true });
+      });
+    } else {
+      wrap.style.height = wrap.scrollHeight + 'px';
+      requestAnimationFrame(() => { wrap.style.height = '0'; wrap.style.opacity = '0'; });
+    }
+  }
+}
+
+function countAccounts(node) {
+  if (!node.children) return 0;
+  let count = 0;
+  node.children.forEach(c => {
+    if (c.type === 'row') count++;
+    else if (c.type === 'cat') count += countAccounts(c);
+  });
+  return count;
+}
+
+function getCatDAReport(node) {
+  if (!node.children) return 0;
+  return node.children.reduce((sum, c) => {
+    if (c.type === 'row') {
+      const d = daData[c.id]||{};
+      const isDebit = isDebitAccount(c.id);
+      const def = isDebit ? (c.debit||0) : (c.credit||0);
+      return sum + (d.report !== undefined ? d.report : def);
+    }
+    return sum + getCatDAReport(c);
+  }, 0);
+}
+
+function getCatDASupporting(node) {
+  if (!node.children) return 0;
+  return node.children.reduce((sum, c) => {
+    if (c.type === 'row') {
+      const d = daData[c.id]||{};
+      return sum + (d.supporting !== undefined ? d.supporting : 0);
+    }
+    return sum + getCatDASupporting(c);
+  }, 0);
+}
+
+function getCatDAStatus(node) {
+  let diffCount = 0, missingCount = 0, matchCount = 0;
+  function check(arr) {
+    arr.forEach(c => {
+      if (c.type === 'row') {
+        const d = daData[c.id]||{};
+        const isDebit = isDebitAccount(c.id);
+        const def = isDebit ? (c.debit||0) : (c.credit||0);
+        const rep = d.report !== undefined ? d.report : def;
+        const sup = d.supporting !== undefined ? d.supporting : 0;
+        const s = getDAStatus(rep, sup);
+        if (s === 'diff') diffCount++;
+        else if (s === 'empty') missingCount++;
+        else if (s === 'match') matchCount++;
+      }
+      if (c.children) check(c.children);
+    });
+  }
+  check(node.children || []);
+
+  const issueCount = diffCount + missingCount;
+  if (issueCount === 0) return { status: 'match', label: 'No Issue' };
+  return { status: issueCount === missingCount ? 'empty' : 'diff', label: `${issueCount} Issue${issueCount!==1?'s':''}` };
+}
+
+function renderDARows(arr, depth) {
+  const fName = (document.getElementById('daFName')?.value||'').toLowerCase();
+  const fRep  = (document.getElementById('daFReport')?.value||'').toLowerCase();
+  const fSup  = (document.getElementById('daFSupporting')?.value||'').toLowerCase();
+  const fStat = (document.getElementById('daFStatus')?.value||'').toLowerCase();
+  let h = '';
+  arr.forEach(n => {
+    if (n.type === 'cat') {
+      const expanded = daExpanded[n.id] !== false;
+      const count = countAccounts(n);
+      const catReport = getCatDAReport(n);
+      const catSupporting = getCatDASupporting(n);
+      const catStatus = getCatDAStatus(n);
+      const { status: catSt, label: catStatusLabel } = catStatus;
+      h += `<div class="da-cat-row" data-da-id="${n.id}">
+        <div class="da-cell" style="padding-left:16px;gap:6px">
+          <button class="ibtn" onclick="toggleDA('${n.id}')" style="flex-shrink:0">
+            <span class="chev-wrap${expanded?'':' collapsed'}" style="display:flex;align-items:center">${IC.chevDown}</span>
+          </button>
+          <span style="font-weight:600">${n.name}</span>
+          <span class="cat-count">${count} Account${count!==1?'s':''}</span>
+        </div>
+        <div class="da-cell ra" style="padding-left:10px;font-weight:600;font-variant-numeric:tabular-nums">${catReport===0?'0.00':fmt(catReport)}</div>
+        <div class="da-cell ra" style="padding-left:10px;font-weight:600;font-variant-numeric:tabular-nums">${catSupporting===0?'0.00':fmt(catSupporting)}</div>
+        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${catSt}"><span class="da-status-dot"></span>${catStatusLabel}</span></div>
+      </div>`;
+      if (n.children) {
+        const inner = renderDARows(n.children, depth+1);
+        h += `<div class="da-children-wrap" data-da-children="${n.id}" style="height:${expanded?'auto':'0'};opacity:${expanded?'1':'0'}">${inner}</div>`;
+      }
+    } else {
+      const d = daData[n.id]||{};
+      const isDebit = isDebitAccount(n.id);
+      const defaultReport = isDebit ? (n.debit||0) : (n.credit||0);
+      const report = d.report !== undefined ? d.report : defaultReport;
+      const supporting = d.supporting !== undefined ? d.supporting : 0;
+      const repFmt = fmt(Math.abs(report));
+      const supFmt = fmt(Math.abs(supporting));
+      const status = getDAStatus(report, supporting);
+      const statusLabel = status==='match' ? 'No Issue' : status==='diff' ? 'Not Match' : 'Data Missing';
+      if (fName && !(n.name||'').toLowerCase().includes(fName)) return;
+      if (fRep  && !repFmt.includes(fRep)) return;
+      if (fSup  && !supFmt.includes(fSup)) return;
+      if (fStat && !statusLabel.toLowerCase().includes(fStat)) return;
+      h += `<div class="da-row">
+        <div class="da-cell" style="padding-left:46px">${n.name||'<span style="color:var(--text-tertiary)">Untitled</span>'}</div>
+        <div class="da-cell ra${report===0?' z':''}"><span style="padding:0 10px;font-variant-numeric:tabular-nums">${report===0?'0.00':repFmt}</span></div>
+        <div class="da-cell ra${supporting===0?' z':''}"><span style="padding:0 10px;font-variant-numeric:tabular-nums">${supporting===0?'0.00':supFmt}</span></div>
+        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${status}"><span class="da-status-dot"></span>${statusLabel}</span></div>
+      </div>`;
+    }
+  });
+  return h;
+}
+
+function renderDA() {
+  const body = document.getElementById('daBody');
+  if (!body) return;
+  body.innerHTML = renderDARows(data, 0);
+}
+
+function applyDAToConversion() {
+  function applyNode(arr) {
+    arr.forEach(n => {
+      if (n.type==='row') {
+        const d = daData[n.id];
+        if (d && d.report !== undefined) {
+          const amt = Math.abs(d.report);
+          if (isDebitAccount(n.id)) { n.debit=amt; n.credit=0; }
+          else { n.credit=amt; n.debit=0; }
+        }
+      }
+      if (n.children) applyNode(n.children);
+    });
+  }
+  applyNode(data);
+  render();
+}
+
+// ── COA MASTER LIST ──
+const coaMaster = [
+  { code: '1-101', name: 'Bank BCA - Cibis' },
+  { code: '1-102', name: 'Bank BCA - Kemang' },
+  { code: '1-103', name: 'Petty Cash - Cibis' },
+  { code: '1-104', name: 'Petty Cash - Kemang' },
+  { code: '1-110', name: 'Piutang Usaha' },
+  { code: '1-111', name: 'Piutang Lain-lain' },
+  { code: '1-120', name: 'Cadangan Kerugian Piutang' },
+  { code: '1-130', name: 'Persediaan' },
+  { code: '1-140', name: 'Biaya Bayar di Muka' },
+  { code: '1-150', name: 'Pajak Dibayar di Muka' },
+  { code: '2-100', name: 'Peralatan Medis' },
+  { code: '2-110', name: 'Akumulasi Penyusutan' },
+  { code: '2-120', name: 'Tanah dan Bangunan' },
+  { code: '2-130', name: 'Kendaraan' },
+  { code: '3-100', name: 'Hutang Usaha' },
+  { code: '3-110', name: 'Hutang Perpajakan' },
+  { code: '3-120', name: 'Hutang Pihak Berelasi' },
+  { code: '3-130', name: 'Hutang Bank Jangka Pendek' },
+  { code: '3-200', name: 'Hutang Bank Jangka Panjang' },
+  { code: '3-210', name: 'Hutang Obligasi' },
+  { code: '4-100', name: 'Modal Pemilik' },
+  { code: '4-110', name: 'Laba Ditahan' },
+  { code: '4-120', name: 'Modal Saham' },
+  { code: '5-100', name: 'Pendapatan Jasa' },
+  { code: '5-110', name: 'Pendapatan Lain-lain' },
+  { code: '6-100', name: 'Beban Gaji' },
+  { code: '6-110', name: 'Beban Sewa' },
+  { code: '6-120', name: 'Beban Penyusutan' },
+  { code: '6-130', name: 'Beban Utilitas' },
+  { code: '6-140', name: 'Beban Pemasaran' },
+];
+
+let coaDropdownNodeId = null;
+let coaDropdownInput  = null;
+
+function openCOADropdown(nodeId, inputEl) {
+  closeCOADropdown(true);
+  coaDropdownNodeId = nodeId;
+  coaDropdownInput  = inputEl;
+
+  const rect = inputEl.getBoundingClientRect();
+  const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  const ddW = 300;
+  let left = rect.left + (window.scrollX || 0);
+  if (left + ddW > window.innerWidth - 8) left = window.innerWidth - ddW - 8;
+  if (left < 8) left = 8;
+
+  const dd = document.createElement('div');
+  dd.id = 'coaDropdown';
+  dd.style.cssText = `
+    position:absolute;
+    left:${left}px;
+    z-index:2147483646;
+    background:var(--bg);border:1px solid var(--border);border-radius:8px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    width:${ddW}px;overflow:hidden;
+    font-family:'Inter',sans-serif;
+    opacity:0;transform:translateY(-6px) scale(0.97);
+    transition:opacity .18s ease,transform .18s cubic-bezier(.4,0,.2,1);
+  `;
+
+  dd.innerHTML = `
+    <div style="padding:8px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:6px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:6px;padding:0 8px;height:32px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-tertiary);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="coaSearch" autocomplete="off" placeholder="Search code or name…"
+          style="flex:1;border:none;outline:none;background:transparent;font-size:12px;font-family:'Inter',sans-serif;color:var(--text-primary);"
+          oninput="renderCOAItems(this.value)">
+      </div>
+    </div>
+    <div id="coaList" style="max-height:220px;overflow-y:auto;padding:4px 0;"></div>
+  `;
+
+  document.body.appendChild(dd);
+  renderCOAItems('');
+
+  // Flip above if not enough space below
+  const ddHeight = 280; // approx max height
+  const spaceBelow = window.innerHeight - rect.bottom - 4;
+  const spaceAbove = rect.top - 4;
+  if (spaceBelow < ddHeight && spaceAbove > spaceBelow) {
+    dd.style.top = 'auto';
+    dd.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
+  } else {
+    dd.style.top = (rect.bottom + scrollY + 4) + 'px';
+    dd.style.bottom = 'auto';
+  }
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    dd.style.opacity = '1';
+    dd.style.transform = 'translateY(0) scale(1)';
+  }));
+
+  setTimeout(() => document.getElementById('coaSearch')?.focus(), 50);
+  setTimeout(() => document.addEventListener('mousedown', coaOutsideClick), 0);
+}
+
+function renderCOAItems(q) {
+  const list = document.getElementById('coaList');
+  if (!list) return;
+  const term = q.toLowerCase();
+  const filtered = coaMaster.filter(c =>
+    c.code.toLowerCase().includes(term) || c.name.toLowerCase().includes(term)
+  );
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="padding:12px 12px;font-size:12px;color:var(--text-tertiary);">No results</div>`;
+    return;
+  }
+  list.innerHTML = filtered.map((c, i) => `
+    <div data-coa-idx="${i}" data-code="${c.code.replace(/"/g,'&quot;')}" data-name="${c.name.replace(/"/g,'&quot;')}"
+      onmousedown="event.preventDefault();handleCOAClick(this)"
+      style="display:flex;align-items:center;gap:10px;padding:7px 12px;cursor:pointer;transition:background .1s;"
+      onmouseover="this.style.background='var(--hover-bg)'"
+      onmouseout="this.style.background='transparent'">
+      <span style="font-size:12px;font-family:'Inter',sans-serif;color:var(--text-secondary);flex-shrink:0;width:52px;">${c.code}</span>
+      <span style="font-size:12px;font-family:'Inter',sans-serif;color:var(--text-primary);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.name}</span>
+    </div>`).join('');
+}
+
+function handleCOAClick(el) {
+  const code = el.dataset.code;
+  const name = el.dataset.name;
+  selectCOAItem(code, name);
+}
+
+function selectCOAItem(code, name) {
+  const nodeId = coaDropdownNodeId;
+  closeCOADropdown(true);
+  if (nodeId) {
+    const n = find(data, nodeId);
+    if (n) { n.code = code; n.name = name; }
+    render();
+  }
+}
+
+function closeCOADropdown(instant) {
+  const dd = document.getElementById('coaDropdown');
+  if (dd) {
+    if (instant) {
+      dd.remove();
+    } else {
+      dd.style.opacity = '0';
+      dd.style.transform = 'translateY(-6px) scale(0.98)';
+      setTimeout(() => { if (dd.parentNode) dd.remove(); }, 180);
+    }
+  }
+  document.removeEventListener('mousedown', coaOutsideClick);
+  coaDropdownNodeId = null;
+  coaDropdownInput  = null;
+}
+
+function coaOutsideClick(e) {
+  const dd = document.getElementById('coaDropdown');
+  if (!dd) return;
+  if (!dd.contains(e.target) && e.target !== coaDropdownInput) {
+    closeCOADropdown();
+  }
+}
+
+function openXeroModal() {
+  const onboardingTab = [...document.querySelectorAll('.ptab')].find(t => t.textContent.trim() === 'Onboarding');
+  if (onboardingTab) setPtab(onboardingTab);
+}
+
+function setPtab(el) {
+  const prevTabName = document.querySelector('.ptab.active')?.textContent.trim();
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const tabName = el.textContent.trim();
+  const isDA = tabName === 'Data Assessment';
+  const isOnboarding = tabName === 'Onboarding';
+
+  const tabOrder = ['Overview','Intake','Data Assessment','Onboarding'];
+  const prevIdx = tabOrder.indexOf(prevTabName || '');
+  const nextIdx = tabOrder.indexOf(tabName);
+  const dir = nextIdx >= prevIdx ? 1 : -1;
+
+  const panelsWrap = document.querySelector('.panels-wrap');
+  const daCardsEl  = document.getElementById('daCards');
+
+  const wpWrapper  = document.getElementById('wpWrapper');
+  const resizer    = document.getElementById('resizer');
+  const tableArea  = document.getElementById('tableArea');
+  const tcardTab   = document.getElementById('tcardTab');
+  const tcardMinBtn= document.getElementById('tcardMinBtn');
+  const tcard      = document.querySelector('.tcard');
+  const tcardHead  = document.querySelector('.tcard-head');
+  const tcardDateWrap = document.querySelector('.tcard-date-wrap');
+  const daTable    = document.getElementById('daTable');
+
+  const applyContent = () => {
+    if (daCardsEl)  daCardsEl.style.display  = 'none';
+    if (daTable)    daTable.style.display     = 'none';
+
+    if (isDA) {
+      if (tcardDateWrap) tcardDateWrap.style.display = 'none';
+      wpWrapper.style.display   = 'none';
+      resizer.style.display     = 'none';
+      tcardTab.style.display    = 'none';
+      tcardMinBtn.style.display = 'none';
+      tcardHead.style.display   = 'none';
+      tcard.style.display       = 'none';
+      tableArea.style.display   = 'none';
+      daCardsEl.style.display   = 'flex';
+      daTable.style.display     = 'flex';
+      renderDA();
+    } else {
+      if (tcardDateWrap) tcardDateWrap.style.display = isOnboarding ? 'none' : '';
+      tcardMinBtn.style.display = '';
+      tcardHead.style.display   = '';
+      tcard.style.display       = '';
+      tableArea.style.display   = '';
+      if (!wpCollapsed) {
+        wpWrapper.style.display = '';
+        resizer.style.display   = '';
+      }
+      if (!tcardCollapsed) tcardTab.style.display = 'none';
+    }
+  };
+
+  // Slide transition
+  panelsWrap.classList.add('tab-exit');
+  panelsWrap.style.transform = `translateX(${-dir * 18}px)`;
+
+  setTimeout(() => {
+    applyContent();
+    panelsWrap.style.transition = 'none';
+    panelsWrap.style.opacity    = '0';
+    panelsWrap.style.transform  = `translateX(${dir * 18}px)`;
+    panelsWrap.classList.remove('tab-exit');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        panelsWrap.style.transition = '';
+        panelsWrap.style.opacity    = '1';
+        panelsWrap.style.transform  = 'none';
+      });
+    });
+  }, 120);
+}
+function setTtab(el){ document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
+
+let currentMode = 'conversion';
+let modeSwitching = false;
+
+function setMode(mode, el) {
+  if (mode === currentMode || modeSwitching) return;
+  modeSwitching = true;
+
+  const scroll = document.getElementById('tcardScroll');
+  const toTrial = mode === 'trial';
+
+  setTtab(el);
+
+  // Step 1: fade out current content
+  scroll.classList.add('tab-exit');
+
+  setTimeout(() => {
+    // Step 2: swap content while invisible
+    currentMode = mode;
+    const scroll = document.getElementById('tcardScroll');
+    scroll.style.display = '';
+    scroll.style.opacity = '';
+    scroll.style.transform = '';
+    scroll.classList.remove('tab-exit','tab-enter-from-right','tab-enter-from-left','slide-out');
+    scroll.classList.toggle('trial-mode', mode === 'trial');
+    // Show/hide TB headers vs standard header
+    const isTrial = mode === 'trial';
+    document.getElementById('tbMonthHdr').style.display = isTrial ? 'grid' : 'none';
+    // tbSubHdr is merged into tbMonthHdr; always hidden
+    document.getElementById('colHdr').style.display     = isTrial ? 'none' : '';
+    document.querySelectorAll('.tb-only').forEach(el => el.style.display = isTrial ? '' : 'none');
+    document.getElementById('moveToWpBtn').style.display = isTrial ? 'none' : '';
+    if(!isTrial){
+      document.querySelectorAll('.acc-row,.cat-row,.filter-row,.tot-row,.col-hdr,.tb-month-hdr').forEach(el=>{
+        el.style.gridTemplateColumns='';
+        el.style.minWidth='';
+      });
+      const body = document.querySelector('.tcard-body');
+      if(body) body.style.minWidth='';
+      document.getElementById('tcardScroll').style.minWidth='';
+    }
+    render();
+
+    // Step 3: position off-screen in the correct direction (no transition)
+    scroll.classList.remove('tab-exit');
+    scroll.classList.add(toTrial ? 'tab-enter-from-right' : 'tab-enter-from-left');
+
+    // Step 4: trigger slide in (restore transition, remove offset class)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scroll.classList.remove('tab-enter-from-right', 'tab-enter-from-left');
+        modeSwitching = false;
+      });
+    });
+  }, 160);
+}
+
+// Separate Xero mock data per month — independent from WP/Conversion values
+const xeroData = {
+  jan: {
+    r1: 98000000, r2: 78500000, r3: 48000000, r4: 19500000,
+    r5: 145000000, r6: -49000000,
+    r7: 97000000, r8: 19200000,
+    r9: 493000000, r10: -98000000,
+    r11: -49000000, r12: -197000000,
+    r14: 0, r13: -855000000,
+  },
+  feb: {
+    // ~2% variance on r2, r6, r10, r12 — rest identical to WP (debit - credit)
+    r1: 100000000,   // same as WP
+    r2: 81600000,    // +2% variance
+    r3: 50000000,    // same
+    r4: 20000000,    // same
+    r5: 150000000,   // same
+    r6: -51000000,   // ~2% variance
+    r7: 100000000,   // same
+    r8: 20000000,    // same
+    r9: 500000000,   // same
+    r10: -102000000, // ~2% variance
+    r11: -50000000,  // same
+    r12: -204000000, // ~2% variance
+    r14: 0,
+    r13: -870000000, // same
+  },
+};
+
+let xeroVisible = true;
+
+function toggleXero() {
+  xeroVisible = !xeroVisible;
+  const scroll = document.getElementById('tcardScroll');
+  scroll.classList.toggle('tb-xero-hidden', !xeroVisible);
+
+  document.querySelectorAll('.xero-col').forEach(el => el.classList.toggle('hidden', !xeroVisible));
+  document.querySelectorAll('.xero-show-btn').forEach(el => el.style.display = xeroVisible ? 'none' : 'flex');
+
+  applyTBGrid();
+  updateTotals();
+}
+
+function getWPBalance(node) {
+  if (node.children && node.children.length > 0) {
+    return node.children.reduce((sum, c) => sum + getWPBalance(c), 0);
+  }
+  return (node.debit || 0) - (node.credit || 0);
+}
+
+function getXeroForMonth(node, month) {
+  const map = xeroData[month];
+  if (!map) return 0;
+  if (node.children && node.children.length > 0) {
+    return node.children.reduce((s, c) => s + getXeroForMonth(c, month), 0);
+  }
+  if (map[node.id] !== undefined) return map[node.id];
+  return getWPBalance(node);
+}
+
+// Dummy WP balance data for Jan '26 (signed: debit positive, credit negative)
+const wpDataJan = {
+  r1: 95000000, r2: 76000000, r3: 46500000, r4: 18800000,   // Kas dan Bank
+  r5: 141000000, r6: -47000000,                               // Piutang, Cadangan
+  r7: 96000000, r8: 18500000,                                 // Persediaan, Biaya
+  r9: 488000000, r10: -95000000,                              // Aset Tetap
+  r11: -47000000, r12: -188000000,                            // Kewajiban
+  r14: 0, r13: -855000000,                                    // Modal
+};
+
+function getWPForMonth(node, month) {
+  if (month === 'feb') {
+    // Feb WP uses live conversion data
+    return getWPBalance(node);
+  }
+  // Jan WP uses dummy data
+  if (node.children && node.children.length > 0) {
+    return node.children.reduce((sum, c) => sum + getWPForMonth(c, 'jan'), 0);
+  }
+  return wpDataJan[node.id] !== undefined ? wpDataJan[node.id] : Math.round(getWPBalance(node) * 0.97);
+}
+
+
+function fmtTB(v) {
+  if (v === 0) return '0.00';
+  return v < 0 ? '(' + fmt(Math.abs(v)) + ')' : fmt(v);
+}
+
+function renderTBCells(n) {
+  const janX = getXeroForMonth(n,'jan'), janWP = getWPForMonth(n,'jan');
+  const febX = getXeroForMonth(n,'feb'), febWP = getWPForMonth(n,'feb');
+  const xHide = xeroVisible ? '' : 'max-width:0;opacity:0;padding:0;pointer-events:none;border:none;';
+  const xCls  = xeroVisible ? '' : ' hidden';
+
+  const janDiff = Math.abs(janX - janWP) > 0;
+  const febDiff = Math.abs(febX - febWP) > 0;
+
+  const janDiffAmt = janX - janWP;
+  const febDiffAmt = febX - febWP;
+
+  const janTip = janDiff ? `Discrepancy vs WP Balance: ${fmtTB(janDiffAmt)}` : '';
+  const febTip = febDiff ? `Discrepancy vs WP Balance: ${fmtTB(febDiffAmt)}` : '';
+
+  const janXBg  = '';
+  const febXBg  = '';
+  const janDot  = '';
+  const febDot  = '';
+  const janXClr = janDiff ? 'color:#DC6803;' : '';
+  const febXClr = febDiff ? 'color:#DC6803;' : '';
+
+  return `
+    <div class="ncell xero-col${xCls}" style="overflow:hidden;transition:max-width .25s,opacity .2s,padding .25s;${xHide}" title="${janTip}">
+      <span style="display:flex;align-items:center;justify-content:flex-end;gap:6px;height:100%;width:100%;padding:0 10px;font-size:12px;font-variant-numeric:tabular-nums;${janXClr}">
+        ${fmtTB(janX)}
+      </span>
+    </div>
+    <div class="ncell${janWP===0?' z':''}">
+      <span style="display:flex;align-items:center;justify-content:flex-end;height:100%;width:100%;padding:0 10px;font-size:12px;font-variant-numeric:tabular-nums">${fmtTB(janWP)}</span>
+    </div>
+    <div class="ncell xero-col${xCls}" style="overflow:hidden;transition:max-width .25s,opacity .2s,padding .25s;${xHide}" title="${febTip}">
+      <span style="display:flex;align-items:center;justify-content:flex-end;gap:6px;height:100%;width:100%;padding:0 10px;font-size:12px;font-variant-numeric:tabular-nums;${febXClr}">
+        ${fmtTB(febX)}
+      </span>
+    </div>
+    <div class="ncell${febWP===0?' z':''}">
+      <span style="display:flex;align-items:center;justify-content:flex-end;height:100%;width:100%;padding:0 10px;font-size:12px;font-variant-numeric:tabular-nums">${fmtTB(febWP)}</span>
+    </div>`;
+}
+
+function getXeroBalance(node) {
+  // Xero Balance: same as debit for now (placeholder — would come from Xero API)
+  if (node.children && node.children.length > 0) {
+    return node.children.reduce((sum, c) => sum + getXeroBalance(c), 0);
+  }
+  return node.debit || 0;
+}
+
+function updateTotals(){
+  let td=0, tc=0;
+  function s(arr){ arr.forEach(n=>{
+    if(n.type==='cat') return;
+    if(!n.children||n.children.length===0){ td+=n.debit||0; tc+=n.credit||0; }
+    if(n.children) s(n.children);
+  });}
+  data.forEach(c=>{ if(c.children) s(c.children); });
+
+  // Conversion totals — always update regardless of mode
+  document.getElementById('totD').textContent = fmt(td);
+  document.getElementById('totC').textContent = fmt(tc);
+
+  // Difference = totD - totC
+  const diff = td - tc;
+  const diffEl = document.getElementById('totDiff');
+  if (diffEl) {
+    const prefix = diff < 0 ? '-' : '';
+    diffEl.textContent = prefix + fmt(Math.abs(diff));
+    diffEl.style.color = diff !== 0 ? '#dc2626' : 'var(--text-tertiary)';
+  }
+
+  // TB totals
+  let janX=0, janWP=0, febX=0, febWP=0;
+  function sumTB(arr){ arr.forEach(n=>{
+    if(n.type==='cat') return;
+    if(!n.children||n.children.length===0){
+      janX  += getXeroForMonth(n,'jan');
+      janWP += getWPForMonth(n,'jan');
+      febX  += getXeroForMonth(n,'feb');
+      febWP += getWPForMonth(n,'feb');
+    }
+    if(n.children) sumTB(n.children);
+  });}
+  data.forEach(c=>{ if(c.children) sumTB(c.children); });
+
+  const fj = el => { const e=document.getElementById(el); if(e) return e; };
+  if(fj('totJanX'))  fj('totJanX').textContent  = fmtTB(janX);
+  if(fj('totJanWP')) fj('totJanWP').textContent = fmtTB(janWP);
+  if(fj('totFebX'))  fj('totFebX').textContent  = fmtTB(febX);
+  if(fj('totFebWP')) fj('totFebWP').textContent = fmtTB(febWP);
+
+  // Show/hide correct tot-row
+  const isTrial = currentMode === 'trial';
+  const convRow = document.getElementById('totRowConversion');
+  const tbRow   = document.getElementById('totRowTB');
+  if(convRow) convRow.style.display = isTrial ? 'none' : '';
+  if(tbRow)   tbRow.style.display   = isTrial ? '' : 'none';
+}
+
+function chevStyle(n, hasKids){
+  if(!hasKids) return 'visibility:hidden';
+  return n.expanded ? '' : 'transform:rotate(-90deg)';
+}
+
+function renderRows(arr, depth){
+  let h='';
+  for(const n of arr){
+    if(n.type==='cat'){
+      const hk=n.children&&n.children.length>0;
+      const count = countAccounts(n);
+
+      // Calculate category totals
+      function sumCat(arr, field) {
+        return arr.reduce((s, c) => {
+          if (c.type==='row') return s + (c[field]||0);
+          if (c.children) return s + sumCat(c.children, field);
+          return s;
+        }, 0);
+      }
+      const catD = sumCat(n.children||[], 'debit');
+      const catC = sumCat(n.children||[], 'credit');
+
+      // TB totals
+      function sumCatTB(arr, fn) {
+        return arr.reduce((s, c) => {
+          if (c.type==='row') return s + fn(c);
+          if (c.children) return s + sumCatTB(c.children, fn);
+          return s;
+        }, 0);
+      }
+      const catJanX = sumCatTB(n.children||[], c => getXeroForMonth(c,'jan'));
+      const catJanWP = sumCatTB(n.children||[], c => getWPForMonth(c,'jan'));
+      const catFebX = sumCatTB(n.children||[], c => getXeroForMonth(c,'feb'));
+      const catFebWP = sumCatTB(n.children||[], c => getWPForMonth(c,'feb'));
+
+      const convAmts = currentMode==='conversion' ? `
+        <div class="ncell ra" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catD===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catD===0?'0,00':fmt(catD)}</div>
+        <div class="ncell ra" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catC===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catC===0?'0,00':fmt(catC)}</div>
+        <div class="actn">
+          <button class="fbtn vbtn" onclick="openCategoryView('${n.id}')">View</button>
+          <button class="fbtn ubtn" onclick="uploadForRow('${n.id}')">${IC.upload}</button>
+          <div style="width:24px;flex-shrink:0"></div>
+        </div>` : `
+        <div class="ncell ra xero-col" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catJanX===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catJanX===0?'0,00':fmtTB(catJanX)}</div>
+        <div class="ncell ra" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catJanWP===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catJanWP===0?'0,00':fmtTB(catJanWP)}</div>
+        <div class="ncell ra xero-col" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catFebX===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catFebX===0?'0,00':fmtTB(catFebX)}</div>
+        <div class="ncell ra" style="font-weight:600;font-variant-numeric:tabular-nums;color:${catFebWP===0?'var(--text-tertiary)':'var(--text-primary)'};padding:0 10px;">${catFebWP===0?'0,00':fmtTB(catFebWP)}</div>
+        <div class="actn fit">
+          <button class="fbtn vbtn" onclick="openCategoryView('${n.id}')">View</button>
+        </div>`;
+
+      h+=`<div class="cat-row" data-id="${n.id}" data-depth="0">
+        <div class="cat-l" style="grid-column:1/3;display:flex;align-items:center;gap:6px">
+          <button class="ibtn" onclick="toggle('${n.id}')" style="${hk?'':'visibility:hidden'}">
+            <span class="chev-wrap${n.expanded?'':' collapsed'}">${IC.chevDown}</span>
+          </button>
+          <span class="cat-nm" ${currentMode==='conversion'?`contenteditable="true" onblur="upd('${n.id}','name',this.textContent)"`:'contenteditable="false"'} spellcheck="false" data-placeholder="Category Name">${n.name}</span>
+          <span class="cat-count">${count} Account${count!==1?'s':''}</span>
+        </div>
+        ${convAmts}
+      </div>`;
+      if(currentMode==='conversion'){
+        h+=`<div class="add-row-btn-row" data-cat="${n.id}">
+          <button class="add-row-btn" onclick="addRowToParent('${n.id}')">Add row to ${n.name||'this category'}</button>
+        </div>`;
+      }
+      if(n.children){
+        const inner = n.children.length===0
+          ?`<div class="erow">No accounts yet — click Add row to add one</div>`
+          :renderRows(n.children,0);
+        h+=`<div class="children-wrap" data-children="${n.id}" style="height:${n.expanded?'auto':'0'};opacity:${n.expanded?'1':'0'}">${inner}</div>`;
+      }
+    } else {
+      if(!rowOk(n)){
+        if(n.children&&n.children.length>0){
+          const inner=renderRows(n.children,depth+1);
+          h+=`<div class="children-wrap" data-children="${n.id}" style="height:${n.expanded?'auto':'0'};opacity:${n.expanded?'1':'0'}">${inner}</div>`;
+        }
+        continue;
+      }
+      const hk=n.children&&n.children.length>0;
+      const pl=16+depth*20;
+      h+=`<div class="acc-row${n.sel?' is-sel':''}" data-id="${n.id}" data-depth="${depth}">
+        <div class="lmeta" style="padding-left:${pl}px">
+          <button class="ibtn" onclick="toggle('${n.id}')" style="${hk?'':'visibility:hidden'}">
+            <span class="chev-wrap${hk&&!n.expanded?' collapsed':''}">${IC.chevDown}</span>
+          </button>
+          <input class="cinp" value="${n.code||''}" placeholder="0-000" spellcheck="false"
+            ${currentMode==='trial' ? 'readonly tabindex="-1" style="pointer-events:none"' : `readonly onclick="event.stopPropagation();openCOADropdown('${n.id}',this)" style="cursor:pointer;"`}>
+        </div>
+        <div class="acell">
+          <input class="ainp" value="${n.name||''}" placeholder="Account Name" spellcheck="false"
+            ${currentMode==='trial' ? 'readonly style="pointer-events:none"' : `readonly onclick="event.stopPropagation();openCOADropdown('${n.id}',this)" style="cursor:pointer;"`}>
+        </div>
+        ${currentMode==='conversion' ? `
+        <div class="ncell${(n.debit||0)===0?' z':''}">
+          <input class="ninp" value="${(n.debit||0)===0?'':fmt(n.debit)}" placeholder="0.00" onfocus="this.select()" onclick="event.stopPropagation()" onblur="const v=pfmt(this.value);upd('${n.id}','debit',this.value);this.value=v===0?'':fmt(v);this.closest('.ncell').className='ncell'+(v===0?' z':'')">
+        </div>
+        <div class="ncell${(n.credit||0)===0?' z':''}">
+          <input class="ninp" value="${(n.credit||0)===0?'':fmt(n.credit)}" placeholder="0.00" onfocus="this.select()" onclick="event.stopPropagation()" onblur="const v=pfmt(this.value);upd('${n.id}','credit',this.value);this.value=v===0?'':fmt(v);this.closest('.ncell').className='ncell'+(v===0?' z':'')">
+        </div>
+        ` : renderTBCells(n)}
+        <div class="actn${currentMode==='trial'?' fit':''}">
+          <button class="fbtn vbtn" onclick="openDetailView('${n.id}')">View</button>
+          ${currentMode==='conversion' ? `
+          <button class="fbtn ubtn" onclick="uploadForRow('${n.id}')">${IC.upload}</button>
+          <button class="ibtn ho del" onclick="deleteNode('${n.id}')">
+            ${IC.trash}<span class="tt fit">Delete</span>
+          </button>` : ''}
+        </div>
+      </div>`;
+      if(n.children&&n.children.length>0){
+        const inner=renderRows(n.children,depth+1);
+        h+=`<div class="children-wrap" data-children="${n.id}" style="height:${n.expanded?'auto':'0'};opacity:${n.expanded?'1':'0'}">${inner}</div>`;
+      }
+    }
+  }
+  return h;
+}
+
+function render(){
+  document.getElementById('tableBody').innerHTML=renderRows(data,0);
+  updateTotals();
+  if(currentMode==='trial') applyTBGrid();
+}
+
+function applyTBGrid(){
+  const xw = xeroVisible ? '130px' : '0px';
+  const cols = `max-content minmax(220px,1fr) ${xw} 130px ${xw} 130px 150px`;
+  const mw = xeroVisible ? '1200px' : '900px';
+  document.querySelectorAll('.acc-row,.cat-row,.filter-row,.tot-row,.tb-month-hdr').forEach(el=>{
+    el.style.gridTemplateColumns = cols;
+    el.style.minWidth = mw;
+  });
+  const body = document.querySelector('.tcard-body');
+  if (body) body.style.minWidth = mw;
+  const scroll = document.getElementById('tcardScroll');
+  scroll.style.minWidth = '';
+}
+
+
+document.addEventListener('mouseenter', e => {
+  const btn = e.target.closest('.ibtn, .fbtn, .tb-xero-toggle');
+  if (!btn) return;
+  const tt = btn.querySelector('.tt');
+  if (!tt) return;
+  tt.style.opacity = '1';
+  const r = btn.getBoundingClientRect();
+  const isFit = tt.classList.contains('fit');
+  requestAnimationFrame(() => {
+    const ttW = tt.offsetWidth;
+    let left = r.left + r.width / 2 - ttW / 2;
+    if (!isFit) {
+      if (left < 8) left = 8;
+      if (left + ttW > window.innerWidth - 8) left = window.innerWidth - ttW - 8;
+    }
+    tt.style.left = left + 'px';
+    tt.style.transform = 'none';
+    tt.style.top = (r.top - tt.offsetHeight - 6) + 'px';
+  });
+}, true);
+
+document.addEventListener('mouseleave', e => {
+  const btn = e.target.closest('.ibtn, .fbtn, .tb-xero-toggle');
+  if (!btn) return;
+  const tt = btn.querySelector('.tt');
+  if (tt) tt.style.opacity = '0';
+}, true);
+
+render();
+setTimeout(() => {
+  const defaultTab = document.querySelector('.ptab.active');
+  if (defaultTab) setPtab(defaultTab);
+}, 0);
+
+/* ── WORKING PAPER ── */
+const COLS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+const ROW_COUNT = 30;
+let activeSheet = null;
+let wpData = {};
+
+function flatRows(){
+  const rows = [];
+  function walk(arr){
+    for(const n of arr){
+      if(n.type !== 'cat') rows.push(n);
+      if(n.children) walk(n.children);
+    }
+  }
+  data.forEach(c => { if(c.children) walk(c.children); });
+  rows.unshift({ id:'__draft', name:'Draft Report', code:'', debit:0, credit:0 });
+  return rows;
+}
+
+function renderWPTabs(){
+  const rows = flatRows();
+  const tabsEl = document.getElementById('wpTabs');
+  tabsEl.innerHTML = rows.map(r =>
+    `<div class="wp-tab${activeSheet===r.id?' active':''}" data-sheet="${r.id}" onclick="selectSheet('${r.id}')">${r.name||'Unnamed'}</div>`
+  ).join('');
+}
+
+function renderWPGrid(rowNode){
+  const grid = document.getElementById('wpGrid');
+  const cols = COLS;
+  const totalCols = cols.length + 1;
+  grid.style.gridTemplateColumns = `40px repeat(${cols.length}, 100px)`;
+
+  let html = '';
+  // col headers row
+  html += `<div class="wp-row-num" style="position:sticky;top:0;z-index:6;background:var(--bg-secondary)"></div>`;
+  cols.forEach(c => {
+    html += `<div class="wp-col-hdr" style="min-width:100px">${c}</div>`;
+  });
+
+  for(let r = 1; r <= ROW_COUNT; r++){
+    html += `<div class="wp-row-num">${r}</div>`;
+    cols.forEach((c,ci) => {
+      const key = `${c}${r}`;
+      const sheetData = (rowNode && wpData[rowNode.id]) || {};
+      let val = sheetData[key] || '';
+      // pre-fill row 1 with account info
+      if(r===1 && rowNode && rowNode.id !== '__draft'){
+        if(ci===0) val = val || rowNode.code || '';
+        if(ci===1) val = val || rowNode.name || '';
+        if(ci===2) val = val || (rowNode.debit ? fmt(rowNode.debit) : '');
+        if(ci===3) val = val || (rowNode.credit ? fmt(rowNode.credit) : '');
+      }
+      html += `<div class="wp-cell" contenteditable="true" data-key="${key}"
+        onfocus="onCellFocus('${c}',${r})"
+        oninput="onCellInput('${key}',this.textContent)"
+        >${val}</div>`;
+    });
+  }
+  grid.innerHTML = html;
+}
+
+function onCellFocus(col, row){
+  document.getElementById('wpCellRef').textContent = `${col}${row}`;
+}
+
+function onCellInput(key, val){
+  if(!activeSheet) return;
+  if(!wpData[activeSheet]) wpData[activeSheet] = {};
+  wpData[activeSheet][key] = val;
+}
+
+function selectSheet(id, fromRow){
+  activeSheet = id;
+  renderWPTabs();
+  const rows = flatRows();
+  const node = rows.find(r => r.id === id);
+  renderWPGrid(node);
+
+  if(!fromRow){
+    // sync to table: highlight the row
+    document.querySelectorAll('.acc-row.is-sel').forEach(el => el.classList.remove('is-sel'));
+    if(id !== '__draft'){
+      const el = document.querySelector(`.acc-row[data-id="${id}"]`);
+      if(el){
+        el.classList.add('is-sel');
+        el.scrollIntoView({ block:'nearest', behavior:'smooth' });
+      }
+    }
+  }
+}
+
+function selectRowFromTable(id){
+  // called when clicking a row in the table
+  selectSheet(id, true);
+  // scroll sheet tab into view
+  const tab = document.querySelector(`.wp-tab[data-sheet="${id}"]`);
+  if(tab) tab.scrollIntoView({ inline:'nearest', behavior:'smooth' });
+}
+
+// Patch acc-row click to sync
+document.getElementById('tableBody').addEventListener('click', e => {
+  const row = e.target.closest('.acc-row[data-id]');
+  if(!row) return;
+  const id = row.dataset.id;
+  document.querySelectorAll('.acc-row.is-sel').forEach(el => el.classList.remove('is-sel'));
+  row.classList.add('is-sel');
+  selectRowFromTable(id);
+});
+
+// Init
+const initRows = flatRows();
+if(initRows.length){
+  activeSheet = initRows[0].id;
+  renderWPTabs();
+  renderWPGrid(initRows[0]);
+}
+
+// Re-render WP tabs whenever table renders
+const _origRender = render;
+window.render = function(){
+  _origRender();
+  renderWPTabs();
+  document.getElementById('tableBody').addEventListener('click', e => {
+    const row = e.target.closest('.acc-row[data-id]');
+    if(!row) return;
+    const id = row.dataset.id;
+    document.querySelectorAll('.acc-row.is-sel').forEach(el => el.classList.remove('is-sel'));
+    row.classList.add('is-sel');
+    selectRowFromTable(id);
+  });
+};
+
+/* ── DETAIL VIEW ── */
+let dvNodeId = null;
+
+const mockFiles = {
+  'r1': [
+    { name: 'BCA-Cibis-Statement-Jan.pdf', sub: 'Bank BCA - Cibis', type: 'pdf' },
+    { name: 'BCA-Cibis-Statement-Feb.pdf', sub: 'Bank BCA - Cibis', type: 'pdf' },
+    { name: 'BCA-Cibis-Reconciliation.xlsx', sub: 'Bank BCA - Cibis', type: 'xls' },
+  ],
+  'r2': [
+    { name: 'BCA-Kemang-Statement-Jan.pdf', sub: 'Bank BCA - Kemang', type: 'pdf' },
+    { name: 'BCA-Kemang-Statement-Feb.pdf', sub: 'Bank BCA - Kemang', type: 'pdf' },
+  ],
+  'r3': [
+    { name: 'PettyCash-Cibis-Log.xlsx', sub: 'Petty Cash - Cibis', type: 'xls' },
+    { name: 'PettyCash-Cibis-Receipts.pdf', sub: 'Petty Cash - Cibis', type: 'pdf' },
+  ],
+  'r4': [
+    { name: 'PettyCash-Kemang-Log.xlsx', sub: 'Petty Cash - Kemang', type: 'xls' },
+  ],
+  'r5': [
+    { name: 'Piutang-Usaha-Aging.xlsx', sub: 'Piutang Usaha', type: 'xls' },
+    { name: 'Piutang-Usaha-Invoice-List.pdf', sub: 'Piutang Usaha', type: 'pdf' },
+    { name: 'Piutang-Usaha-Collection.pdf', sub: 'Piutang Usaha', type: 'pdf' },
+  ],
+  'r6': [
+    { name: 'Cadangan-Kerugian-Calc.xlsx', sub: 'Cadangan Kerugian Piutang', type: 'xls' },
+  ],
+  'r7': [
+    { name: 'Persediaan-Stock-Opname.xlsx', sub: 'Persediaan', type: 'xls' },
+    { name: 'Persediaan-Valuation.pdf', sub: 'Persediaan', type: 'pdf' },
+  ],
+  'r8': [
+    { name: 'Biaya-Bayar-Dimuka-Schedule.xlsx', sub: 'Biaya Bayar di Muka', type: 'xls' },
+    { name: 'Biaya-Bayar-Dimuka-Contracts.pdf', sub: 'Biaya Bayar di Muka', type: 'pdf' },
+  ],
+  'r9': [
+    { name: 'Peralatan-Medis-FAR.xlsx', sub: 'Peralatan Medis', type: 'xls' },
+    { name: 'Peralatan-Medis-Invoice.pdf', sub: 'Peralatan Medis', type: 'pdf' },
+    { name: 'Peralatan-Medis-Depreciation.xlsx', sub: 'Peralatan Medis', type: 'xls' },
+  ],
+  'r10': [
+    { name: 'Akumulasi-Penyusutan-Schedule.xlsx', sub: 'Akumulasi Penyusutan', type: 'xls' },
+  ],
+  'r11': [
+    { name: 'Hutang-Usaha-Aging.xlsx', sub: 'Hutang Usaha', type: 'xls' },
+    { name: 'Hutang-Usaha-Vendor-List.pdf', sub: 'Hutang Usaha', type: 'pdf' },
+  ],
+  'r12': [
+    { name: 'Hutang-Bank-Loan-Agreement.pdf', sub: 'Hutang Bank', type: 'pdf' },
+    { name: 'Hutang-Bank-Schedule.xlsx', sub: 'Hutang Bank', type: 'xls' },
+  ],
+  'r13': [
+    { name: 'Modal-Pemilik-Deed.pdf', sub: 'Modal Pemilik', type: 'pdf' },
+    { name: 'Modal-Pemilik-Equity-Schedule.xlsx', sub: 'Modal Pemilik', type: 'xls' },
+  ],
+};
+
+function sumChildren(node, field) {
+  if (!node.children || node.children.length === 0) return node[field] || 0;
+  return node.children.reduce((acc, c) => acc + sumChildren(c, field), 0);
+}
+
+function collectChildFiles(node) {
+  let files = (mockFiles[node.id] || []).map(f => ({ ...f, sub: f.sub || node.name }));
+  if (node.children) {
+    node.children.forEach(c => { files = files.concat(collectChildFiles(c)); });
+  }
+  return files;
+}
+
+function showDetailView(prepareFn) {
+  const scroll = document.querySelector('.tcard-scroll');
+  const detail = document.getElementById('detailView');
+  const head = document.querySelector('.tcard-head');
+
+  scroll.classList.add('slide-out');
+  head.style.opacity = '0';
+
+  setTimeout(() => {
+    scroll.style.display = 'none';
+    scroll.classList.remove('slide-out');
+    head.style.display = 'none';
+    head.style.opacity = '';
+
+    prepareFn();
+
+    detail.style.display = 'flex';
+    detail.classList.add('slide-in-pre');
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        detail.classList.remove('slide-in-pre');
+        detail.classList.add('slide-in');
+      });
+    });
+  }, 200);
+}
+
+function openCategoryView(id) {
+  const n = find(data, id);
+  if (!n) return;
+  dvBreadcrumb = [{ id, name: n.name || 'Category', isCategory: true }];
+  showDetailView(() => {
+    openCategoryViewWithCrumb(id);
+  });
+}
+
+function openDetailView(id) {
+  const n = find(data, id);
+  if (!n) return;
+  dvBreadcrumb = [{ id, name: n.name, isCategory: false }];
+
+  showDetailView(() => {
+    openDetailViewWithCrumb(id, false);
+  });
+}
+
+function uploadForRow(id) {
+  // Open detail view first, then trigger file picker
+  const n = find(data, id);
+  if (!n) return;
+  if (n.type === 'cat') {
+    openCategoryView(id);
+  } else {
+    openDetailView(id);
+  }
+  // Trigger file picker after view opens
+  setTimeout(() => {
+    let inp = document.getElementById('_hiddenFileInput');
+    if (!inp) {
+      inp = document.createElement('input');
+      inp.type = 'file';
+      inp.id = '_hiddenFileInput';
+      inp.multiple = true;
+      inp.style.display = 'none';
+      document.body.appendChild(inp);
+      inp.addEventListener('change', () => {
+        const files = Array.from(inp.files);
+        files.forEach(f => addFileToDetailView(f));
+        inp.value = '';
+      });
+    }
+    inp.click();
+  }, 300);
+}
+
+function addFileToDetailView(file) {
+  const list = document.getElementById('dvFileList');
+  if (!list) return;
+  // Remove empty state message if present
+  const empty = list.querySelector('div[style*="italic"]');
+  if (empty) empty.remove();
+  const ext = file.name.split('.').pop().toUpperCase();
+  const size = file.size > 1024*1024 ? (file.size/1024/1024).toFixed(1)+' MB' : (file.size/1024).toFixed(0)+' KB';
+  const item = document.createElement('div');
+  item.className = 'dv-file-item';
+  item.innerHTML = `
+    <div class="dv-file-icon">${ext}</div>
+    <div class="dv-file-info">
+      <div class="dv-file-name">${file.name}</div>
+      <div class="dv-file-meta">${size}</div>
+    </div>`;
+  list.appendChild(item);
+}
+
+
+function closeDetailView() {
+  const scroll = document.querySelector('.tcard-scroll');
+  const detail = document.getElementById('detailView');
+
+  detail.classList.remove('slide-in');
+  detail.classList.add('slide-in-pre');
+
+  setTimeout(() => {
+    detail.style.display = 'none';
+    detail.classList.remove('slide-in-pre');
+    dvBreadcrumb = [];
+  document.getElementById('dvFieldsAccount').style.display = 'flex';
+    document.getElementById('dvFieldsCategory').style.display = 'none';
+    dvNodeId = null;
+    document.getElementById('dvPreview').innerHTML = '<span class="dv-preview-label">Document View</span>';
+    ['dvDebit','dvCredit'].forEach(id => {
+      const el = document.getElementById(id);
+      el.readOnly = false; el.style.color = ''; el.style.cursor = '';
+    });
+
+    scroll.style.display = '';
+    scroll.style.opacity = '0';
+    scroll.style.transform = 'translateX(-18px)';
+    document.querySelector('.tcard-head').style.display = '';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scroll.style.transition = 'opacity .2s ease, transform .22s cubic-bezier(.4,0,.2,1)';
+        scroll.style.opacity = '';
+        scroll.style.transform = '';
+      });
+    });
+  }, 200);
+}
+
+let dvBreadcrumb = [];
+
+function dvSlideTransition(direction, updateFn) {
+  const body = document.querySelector('.dv-body');
+  const fields = document.querySelector('.dv-fields');
+  const exitClass = direction === 'forward' ? 'dv-slide-exit' : 'dv-slide-exit-right';
+  const enterClass = direction === 'forward' ? 'dv-slide-enter-from' : 'dv-slide-enter-from-left';
+
+  // Add exit class (different translateX for back)
+  if (direction === 'back') {
+    body.style.transition = 'opacity .18s ease, transform .2s cubic-bezier(.4,0,.2,1)';
+    body.style.opacity = '0';
+    body.style.transform = 'translateX(16px)';
+    fields.style.transition = 'opacity .18s ease';
+    fields.style.opacity = '0';
+  } else {
+    body.classList.add('dv-slide-exit');
+    fields.style.transition = 'opacity .18s ease';
+    fields.style.opacity = '0';
+  }
+
+  setTimeout(() => {
+    updateFn();
+
+    // Reset to enter position (off-screen opposite side)
+    body.style.transition = 'none';
+    if (direction === 'back') {
+      body.style.opacity = '0';
+      body.style.transform = 'translateX(-16px)';
+    } else {
+      body.classList.remove('dv-slide-exit');
+      body.style.opacity = '0';
+      body.style.transform = 'translateX(16px)';
+    }
+    fields.style.opacity = '0';
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        body.style.transition = 'opacity .18s ease, transform .2s cubic-bezier(.4,0,.2,1)';
+        body.style.opacity = '';
+        body.style.transform = '';
+        fields.style.transition = 'opacity .18s ease';
+        fields.style.opacity = '';
+      });
+    });
+  }, 180);
+}
+
+function dvNavToChild(childId) {
+  const n = find(data, childId);
+  if (!n) return;
+  dvBreadcrumb.push({ id: dvNodeId, name: find(data, dvNodeId)?.name });
+  dvSlideTransition('forward', () => openDetailViewWithCrumb(childId, false));
+}
+
+function dvNavBack() {
+  if (!dvBreadcrumb.length) return;
+  const prev = dvBreadcrumb.pop();
+  const n = find(data, prev.id);
+  if (!n) return;
+  dvSlideTransition('back', () => {
+    if (n.type === 'cat') openCategoryViewWithCrumb(prev.id);
+    else openDetailViewWithCrumb(prev.id, false);
+  });
+}
+
+function renderDvFiles(files, isParent) {
+  document.getElementById('dvFilesTitle').textContent = `Files (${files.length})`;
+  const list = document.getElementById('dvFileList');
+  if (files.length === 0) {
+    list.innerHTML = `<div style="padding:20px 14px;font-size:12px;color:var(--text-tertiary);font-style:italic">No files yet — click Add to upload</div>`;
+    return;
+  }
+
+  // Group by sub name to know which subs are navigable children
+  list.innerHTML = files.map((f, i) => {
+    const childNode = isParent ? findByName(data, f.sub) : null;
+    const subHtml = childNode
+      ? `<div class="dv-file-sub-link" onclick="dvNavToChild('${childNode.id}')">${f.sub}</div>`
+      : `<div class="dv-file-sub">${f.sub}</div>`;
+    return `<div class="dv-file-item${i===0?' active':''}" onclick="selectDvFile(this,'${f.name}','${f.type}')">
+      <div class="dv-file-badge ${f.type}">${f.type.toUpperCase()}</div>
+      <div class="dv-file-info">
+        <div class="dv-file-name">${f.name}</div>
+        ${subHtml}
+      </div>
+    </div>`;
+  }).join('');
+  if (files.length > 0) selectDvFile(list.firstChild, files[0].name, files[0].type);
+}
+
+function findByName(arr, name) {
+  for (const n of arr) {
+    if (n.name === name) return n;
+    if (n.children) { const f = findByName(n.children, name); if (f) return f; }
+  }
+  return null;
+}
+
+function openCategoryViewWithCrumb(id) {
+  const n = find(data, id);
+  if (!n) return;
+  dvNodeId = id;
+  const isTrial = currentMode === 'trial';
+  document.querySelector('.dv-fields').classList.toggle('readonly', isTrial);
+  document.getElementById('dvFieldsAccount').style.display = 'none';
+  document.getElementById('dvFieldsCategory').style.display = 'flex';
+  document.getElementById('dvFieldsCategory').style.flexDirection = 'column';
+  document.getElementById('dvFieldsCategory').style.gap = '5px';
+  const catInp = document.getElementById('dvCategory');
+  catInp.value = n.name || '';
+  catInp.readOnly = isTrial;
+  catInp.style.color = isTrial ? 'var(--text-secondary)' : '';
+  
+  catInp.onblur = isTrial ? null : () => upd(dvNodeId, 'name', catInp.value);
+  const addBtn = document.querySelector('.dv-add-btn');
+  if (addBtn) addBtn.style.display = isTrial ? 'none' : '';
+  const files = collectChildFiles(n);
+  renderDvFiles(files, true);
+}
+
+function openDetailViewWithCrumb(id, pushing) {
+  const n = find(data, id);
+  if (!n) return;
+  dvNodeId = id;
+  if (pushing) {
+    dvBreadcrumb.push({ id, name: n.name, isCategory: false });
+  }
+  const isTrial = currentMode === 'trial';
+  document.querySelector('.dv-fields').classList.toggle('readonly', isTrial);
+  document.getElementById('dvFieldsAccount').style.display = 'flex';
+  document.getElementById('dvFieldsCategory').style.display = 'none';
+  const hasChildren = n.children && n.children.length > 0;
+  const debit = hasChildren ? sumChildren(n, 'debit') : (n.debit || 0);
+  const credit = hasChildren ? sumChildren(n, 'credit') : (n.credit || 0);
+  document.getElementById('dvCode').value = n.code || '';
+  document.getElementById('dvAccount').value = n.name || '';
+  document.getElementById('dvDebit').value = debit === 0 ? '' : fmt(debit);
+  document.getElementById('dvCredit').value = credit === 0 ? '' : fmt(credit);
+  const files = hasChildren ? collectChildFiles(n) : (mockFiles[id] || []).map(f => ({ ...f, sub: f.sub || n.name }));
+  renderDvFiles(files, hasChildren);
+  // Disable all inputs in trial mode
+  ['dvCode','dvAccount','dvDebit','dvCredit'].forEach(inputId => {
+    const el = document.getElementById(inputId);
+    el.readOnly = isTrial || (hasChildren && ['dvDebit','dvCredit'].includes(inputId));
+    el.style.color = (isTrial || (hasChildren && ['dvDebit','dvCredit'].includes(inputId))) ? 'var(--text-secondary)' : '';
+    
+    el.onblur = null;
+    if (!isTrial) {
+      if (['dvCode','dvAccount'].includes(inputId)) {
+        el.onblur = () => {
+          upd(dvNodeId, { dvCode:'code', dvAccount:'name' }[inputId], el.value);
+          syncRowInput(dvNodeId, { dvCode:'code', dvAccount:'name' }[inputId]);
+        };
+      } else if (!hasChildren) {
+        el.onblur = () => {
+          const v=pfmt(el.value);
+          upd(dvNodeId, { dvDebit:'debit', dvCredit:'credit' }[inputId], el.value);
+          el.value = v===0?'':fmt(v);
+          syncRowInput(dvNodeId, { dvDebit:'debit', dvCredit:'credit' }[inputId]);
+        };
+      }
+    }
+  });
+  // Show/hide add file button
+  const addBtn = document.querySelector('.dv-add-btn');
+  if (addBtn) addBtn.style.display = isTrial ? 'none' : '';
+}
+
+function selectDvFile(el, name, type) {
+  document.querySelectorAll('.dv-file-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  const preview = document.getElementById('dvPreview');
+  const color = type === 'pdf' ? '#fee2e2' : type === 'xls' ? '#dcfce7' : '#e6f2ff';
+  const textColor = type === 'pdf' ? '#dc2626' : type === 'xls' ? '#16a34a' : '#0074E6';
+  preview.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div style="width:64px;height:64px;border-radius:12px;background:${color};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:${textColor}">${type.toUpperCase()}</div>
+      <div style="font-size:13px;font-weight:500;color:var(--text-primary)">${name}</div>
+      <div style="font-size:12px;color:var(--text-secondary)">Preview not available in this view</div>
+    </div>`;
+}
+
+function dvAddFile() {
+  if (!dvNodeId) return;
+  let inp = document.getElementById('_hiddenFileInput');
+  if (!inp) {
+    inp = document.createElement('input');
+    inp.type = 'file';
+    inp.id = '_hiddenFileInput';
+    inp.multiple = true;
+    inp.style.display = 'none';
+    document.body.appendChild(inp);
+  }
+  inp.onchange = () => {
+    Array.from(inp.files).forEach(f => addFileToDetailView(f));
+    inp.value = '';
+  };
+  inp.click();
+}
+
+const EXPAND_SVG = `<path d="M5 12h14"/>`;
+const MAXIMIZE_SVG = `<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>`;
+
+let tcardCollapsed = false;
+let wpCollapsed = false;
+
+function minimizePanel(which) {
+  const tableArea   = document.getElementById('tableArea');
+  const wpWrapper   = document.getElementById('wpWrapper');
+  const resizer     = document.getElementById('resizer');
+  const tcardTab    = document.getElementById('tcardTab');
+  const wpTab       = document.getElementById('wpTab');
+  const tcardIcon   = document.getElementById('tcardMinIcon');
+  const tcardTip    = document.getElementById('tcardMinTip');
+  const wpIcon      = document.getElementById('wpMinIcon');
+  const wpTip       = document.getElementById('wpMinTip');
+  const tcardMinBtn = document.getElementById('tcardMinBtn');
+  const wpMinBtn    = document.getElementById('wpMinBtn');
+
+  if (which === 'tcard') {
+    if (!tcardCollapsed && wpCollapsed) return;
+    tcardCollapsed = !tcardCollapsed;
+
+    if (tcardCollapsed) {
+      tableArea.classList.add('collapsing');
+      resizer.style.opacity = '0';
+      resizer.style.pointerEvents = 'none';
+      setTimeout(() => {
+        tableArea.style.display = 'none';
+        tcardTab.style.display  = 'flex';
+        resizer.style.display   = 'none';
+        resizer.style.opacity   = '';
+        resizer.style.pointerEvents = '';
+      }, 320);
+      wpIcon.innerHTML  = MAXIMIZE_SVG;
+      wpTip.textContent = 'Restore table';
+      wpMinBtn.style.opacity       = '0.3';
+      wpMinBtn.style.pointerEvents = 'none';
+    } else {
+      tableArea.style.display = '';
+      tcardTab.style.display  = 'none';
+      resizer.style.display   = '';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          tableArea.classList.remove('collapsing');
+        });
+      });
+      wpIcon.innerHTML  = EXPAND_SVG;
+      wpTip.textContent = 'Minimize';
+      wpMinBtn.style.opacity       = '';
+      wpMinBtn.style.pointerEvents = '';
+    }
+
+  } else {
+    if (!wpCollapsed && tcardCollapsed) return;
+    wpCollapsed = !wpCollapsed;
+
+    if (wpCollapsed) {
+      wpWrapper.classList.add('collapsing');
+      resizer.style.opacity = '0';
+      resizer.style.pointerEvents = 'none';
+      setTimeout(() => {
+        wpWrapper.style.display = 'none';
+        wpTab.style.display     = 'flex';
+        resizer.style.display   = 'none';
+        resizer.style.opacity   = '';
+        resizer.style.pointerEvents = '';
+        tableArea.style.width    = 'calc(100% - 38px)';
+        tableArea.style.maxWidth = 'calc(100% - 38px)';
+      }, 320);
+      tcardIcon.innerHTML      = MAXIMIZE_SVG;
+      tcardTip.textContent     = 'Restore working paper';
+      tcardMinBtn.style.opacity       = '0.3';
+      tcardMinBtn.style.pointerEvents = 'none';
+    } else {
+      tableArea.style.width    = '';
+      tableArea.style.maxWidth = '';
+      wpWrapper.style.display  = '';
+      wpTab.style.display      = 'none';
+      resizer.style.display    = '';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          wpWrapper.classList.remove('collapsing');
+        });
+      });
+      tcardIcon.innerHTML      = EXPAND_SVG;
+      tcardTip.textContent     = 'Minimize';
+      tcardMinBtn.style.opacity       = '';
+      tcardMinBtn.style.pointerEvents = '';
+    }
+  }
+}
+
+// ── MOVE TO WP CALENDAR ──
+let mwpCalDate = new Date();
+let mwpSelectedDate = new Date();
+let mwpCalOpen = false;
+
+// Initialize display with today's date
+(function initMwpDate() {
+  const t = mwpSelectedDate;
+  const dd = String(t.getDate()).padStart(2,'0');
+  const mm = String(t.getMonth()+1).padStart(2,'0');
+  const yyyy = t.getFullYear();
+  setTimeout(() => {
+    const display = document.getElementById('mwpDateDisplay');
+    if (display) { display.textContent = `${dd}/${mm}/${yyyy}`; display.style.color = 'var(--text-primary)'; }
+  }, 0);
+})();
+
+function toggleMwpCal() {
+  mwpCalOpen ? closeMwpCal() : openMwpCal();
+}
+
+function openMwpCal() {
+  mwpCalOpen = true;
+  const cal = document.getElementById('mwpCal');
+  cal.style.display = 'block';
+  requestAnimationFrame(() => { cal.style.opacity = '1'; cal.style.transform = 'translateY(0)'; });
+  renderMwpCal();
+  setTimeout(() => document.addEventListener('click', mwpOutsideClick), 0);
+}
+
+function closeMwpCal() {
+  mwpCalOpen = false;
+  const cal = document.getElementById('mwpCal');
+  cal.style.opacity = '0';
+  cal.style.transform = 'translateY(-4px)';
+  setTimeout(() => { cal.style.display = 'none'; }, 150);
+  document.removeEventListener('click', mwpOutsideClick);
+}
+
+function mwpOutsideClick(e) {
+  const cal = document.getElementById('mwpCal');
+  const trigger = document.getElementById('mwpDateTrigger');
+  if (!cal.contains(e.target) && !trigger.contains(e.target)) closeMwpCal();
+}
+
+function mwpNavMonth(dir) {
+  mwpCalDate = new Date(mwpCalDate.getFullYear(), mwpCalDate.getMonth() + dir, 1);
+  renderMwpCal();
+}
+
+function renderMwpCal() {
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const days = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  const y = mwpCalDate.getFullYear(), m = mwpCalDate.getMonth();
+  document.getElementById('mwpCalTitle').textContent = months[m] + ' ' + y;
+
+  // Render day headers
+  const hdrs = document.getElementById('mwpCalHeaders');
+  if (hdrs && !hdrs.hasChildNodes()) {
+    hdrs.innerHTML = days.map(d => `<div style="text-align:center;font-size:12px;font-family:'Inter',inherit;color:var(--text-tertiary);padding:4px 0;">${d}</div>`).join('');
+  }
+
+  const first = new Date(y, m, 1);
+  let startDay = first.getDay(); // 0=Sun
+  startDay = startDay === 0 ? 6 : startDay - 1; // Mon=0
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const daysInPrev = new Date(y, m, 0).getDate();
+
+  let html = '';
+  for (let i = 0; i < startDay; i++) {
+    const d = daysInPrev - startDay + i + 1;
+    html += `<div style="text-align:center;padding:6px 2px;font-size:13px;font-family:'Inter',inherit;color:var(--text-tertiary);border-radius:6px;">${d}</div>`;
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isSelected = mwpSelectedDate &&
+      mwpSelectedDate.getDate()===d && mwpSelectedDate.getMonth()===m && mwpSelectedDate.getFullYear()===y;
+    const isToday = new Date().getDate()===d && new Date().getMonth()===m && new Date().getFullYear()===y;
+    const bg = isSelected ? '#0074E6' : 'transparent';
+    const color = isSelected ? '#fff' : isToday ? '#0074E6' : 'var(--text-primary)';
+    const fw = isSelected || isToday ? '600' : '400';
+    html += `<div onclick="mwpSelectDay(${d})" style="text-align:center;padding:6px 2px;font-size:13px;font-family:'Inter',inherit;color:${color};background:${bg};border-radius:6px;cursor:pointer;font-weight:${fw};transition:background .1s;"
+      onmouseover="if(!${isSelected})this.style.background='var(--hover-bg)'"
+      onmouseout="if(!${isSelected})this.style.background='transparent'"
+    >${d}</div>`;
+  }
+  const total = startDay + daysInMonth;
+  const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let d = 1; d <= remaining; d++) {
+    html += `<div style="text-align:center;padding:6px 2px;font-size:13px;font-family:'Inter',inherit;color:var(--text-tertiary);border-radius:6px;">${d}</div>`;
+  }
+  document.getElementById('mwpCalDays').innerHTML = html;
+}
+
+function mwpSelectDay(d) {
+  mwpSelectedDate = new Date(mwpCalDate.getFullYear(), mwpCalDate.getMonth(), d);
+  const dd = String(d).padStart(2,'0');
+  const mm = String(mwpCalDate.getMonth()+1).padStart(2,'0');
+  const yyyy = mwpCalDate.getFullYear();
+  const display = document.getElementById('mwpDateDisplay');
+  display.textContent = `${dd}/${mm}/${yyyy}`;
+  display.style.color = 'var(--text-primary)';
+  closeMwpCal();
+}
+
+function mwpClearDate() {
+  mwpSelectedDate = null;
+  const display = document.getElementById('mwpDateDisplay');
+  display.textContent = 'dd/mm/yyyy';
+  display.style.color = 'var(--text-tertiary)';
+  renderMwpCal();
+}
+
+function mwpConfirmDate() {
+  closeMwpCal();
+}
+
+function moveToWP() {
+  const modal = document.getElementById('moveToWpModal');
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => {
+    modal.classList.add('mwp-open');
+  });
+}
+
+function closeMoveToWpModal(e) {
+  if (!e || e.target === document.getElementById('moveToWpModal')) {
+    const modal = document.getElementById('moveToWpModal');
+    modal.classList.remove('mwp-open');
+    modal.classList.add('mwp-close');
+    modal.addEventListener('transitionend', () => {
+      modal.style.display = 'none';
+      modal.classList.remove('mwp-close');
+    }, { once: true });
+  }
+}
+
+function confirmMoveToWP() {
+  closeMoveToWpModal();
+  const btn = document.getElementById('moveToWpBtn');
+  if (btn) btn.classList.add('loading');
+  setTimeout(() => {
+    if (btn) btn.classList.remove('loading');
+    showToast('moved', 'wp');
+  }, 2000);
+}
+
+(function(){
+  const resizer = document.getElementById('resizer');
+  const tableArea = document.getElementById('tableArea');
+  const content = document.querySelector('.panels-wrap');
+  let startX, startW;
+
+  resizer.addEventListener('mousedown', e => {
+    startX = e.clientX;
+    startW = tableArea.getBoundingClientRect().width;
+    resizer.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    tableArea.style.transition = 'none';
+
+    function onMove(e){
+      const dx = e.clientX - startX;
+      const contentW = content.getBoundingClientRect().width;
+      const newW = Math.min(contentW - 326, Math.max(320, startW + dx));
+      tableArea.style.width = newW + 'px';
+    }
+
+    function onUp(){
+      resizer.classList.remove('dragging');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      tableArea.style.transition = '';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+})();
+</script>
+<div class="toast" id="toast"></div>
+</body>
+</html>
