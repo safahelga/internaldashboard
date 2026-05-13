@@ -675,13 +675,28 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
 .da-cell.z { color:var(--text-tertiary); }
 .da-children-wrap { overflow:hidden; transition:height .25s cubic-bezier(.4,0,.2,1),opacity .2s ease; }
 .da-status { display:inline-flex; align-items:center; gap:12px; font-size:12px; font-family:'Inter',inherit; font-weight:400; white-space:nowrap; }
+.da-status-dot-wrap { width:12px; height:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .da-status-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.da-issue-icon {
+  width:12px; height:12px; border-radius:50%; flex-shrink:0;
+  border:1.5px solid #9ca3af; position:relative;
+  box-shadow:none !important; background:transparent;
+}
+.da-issue-icon::before {
+  content:'!'; position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-52%);
+  font-size:8px; font-weight:700; line-height:1; color:#9ca3af;
+}
 .da-status.match .da-status-dot { background:#16a34a; box-shadow:0 0 0 4px #bbf7d0; }
 .da-status.diff   .da-status-dot { background:#dc2626; box-shadow:0 0 0 4px #fecaca; }
 .da-status.empty  .da-status-dot { background:#9ca3af; box-shadow:0 0 0 4px #e5e7eb; }
 .dark .da-status.match .da-status-dot { background:#22c55e; box-shadow:0 0 0 4px #14532d; }
 .dark .da-status.diff   .da-status-dot { background:#ef4444; box-shadow:0 0 0 4px #7f1d1d; }
 .dark .da-status.empty  .da-status-dot { background:#6b7280; box-shadow:0 0 0 4px #374151; }
+/* Override for issue icon — always grey, no fill */
+.da-status .da-issue-icon,
+.da-status.diff .da-issue-icon,
+.da-status.empty .da-issue-icon { background:transparent !important; box-shadow:none !important; }
 
 .xero-connect-screen {
   flex: 1; display: flex; align-items: center; justify-content: center;
@@ -1266,7 +1281,6 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
 
     <!-- Page tabs -->
     <div class="page-tabs">
-      <div class="ptab" onclick="setPtab(this)">Overview</div>
       <div class="ptab" onclick="setPtab(this)">Intake</div>
       <div class="ptab" onclick="setPtab(this)">Data Assessment</div>
       <div class="ptab active" onclick="setPtab(this)">Onboarding</div>
@@ -1957,7 +1971,7 @@ const daData = {
   r4:  { report: 20000000,  supporting: 20000000  },  // match
   r5:  { report: 150000000, supporting: 150000000 },  // match
   r6:  { report: 50000000,  supporting: 51000000  },  // ~2% diff
-  r7:  { report: 100000000, supporting: 100000000 },  // match
+  r7:  { report: 100000000, supporting: 102000000 },  // ~2% diff
   r8:  { report: 20000000,  supporting: 20000000  },  // match
   r9:  { report: 500000000, supporting: 510000000 },  // ~2% diff
   r10: { report: 100000000, supporting: 100000000 },  // match
@@ -2076,6 +2090,33 @@ function renderDARows(arr, depth) {
     if (n.type === 'cat') {
       const expanded = daExpanded[n.id] !== false;
       const count = countAccounts(n);
+      const daVisibleCount = (function countDF(arr) {
+        const fName = (document.getElementById('daFName')?.value||'').toLowerCase();
+        const fRep  = (document.getElementById('daFReport')?.value||'').toLowerCase();
+        const fSup  = (document.getElementById('daFSupporting')?.value||'').toLowerCase();
+        const fStat = (document.getElementById('daFStatus')?.value||'').toLowerCase();
+        return arr.reduce((s,c) => {
+          if (c.type==='row') {
+            const d = daData[c.id]||{};
+            const isDebit = isDebitAccount(c.id);
+            const def = isDebit ? (c.debit||0) : (c.credit||0);
+            const rep = d.report!==undefined ? d.report : def;
+            const sup = d.supporting!==undefined ? d.supporting : 0;
+            const repFmt = fmt(Math.abs(rep));
+            const supFmt = fmt(Math.abs(sup));
+            const st = getDAStatus(rep, sup);
+            const lbl = st==='match'?'no issue':st==='diff'?'not match':'data missing';
+            const ok = (!fName||(c.name||'').toLowerCase().includes(fName))
+              && (!fRep||repFmt.includes(fRep))
+              && (!fSup||supFmt.includes(fSup))
+              && (!fStat||lbl.includes(fStat));
+            return s + (ok?1:0);
+          }
+          return s + countDF(c.children||[]);
+        }, 0);
+      })(n.children||[]);
+      const daAnyFilter = (document.getElementById('daFName')?.value||'') || (document.getElementById('daFReport')?.value||'') || (document.getElementById('daFSupporting')?.value||'') || (document.getElementById('daFStatus')?.value||'');
+      if (daAnyFilter && daVisibleCount === 0) return;
       const catReport = getCatDAReport(n);
       const catSupporting = getCatDASupporting(n);
       const catStatus = getCatDAStatus(n);
@@ -2086,11 +2127,11 @@ function renderDARows(arr, depth) {
             <span class="chev-wrap${expanded?'':' collapsed'}" style="display:flex;align-items:center">${IC.chevDown}</span>
           </button>
           <span style="font-weight:600">${n.name}</span>
-          <span class="cat-count">${count} Account${count!==1?'s':''}</span>
+          <span class="cat-count">${daVisibleCount} Account${daVisibleCount!==1?'s':''}</span>
         </div>
         <div class="da-cell ra" style="padding-left:10px;font-weight:600;font-variant-numeric:tabular-nums">${catReport===0?'0.00':fmt(catReport)}</div>
         <div class="da-cell ra" style="padding-left:10px;font-weight:600;font-variant-numeric:tabular-nums">${catSupporting===0?'0.00':fmt(catSupporting)}</div>
-        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${catSt}"><span class="da-status-dot"></span>${catStatusLabel}</span></div>
+        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${catSt}"><span class="da-status-dot-wrap"><span class="da-status-dot ${catSt!=='match'?'da-issue-icon':''}"></span></span>${catStatusLabel}</span></div>
       </div>`;
       if (n.children) {
         const inner = renderDARows(n.children, depth+1);
@@ -2114,7 +2155,7 @@ function renderDARows(arr, depth) {
         <div class="da-cell" style="padding-left:46px">${n.name||'<span style="color:var(--text-tertiary)">Untitled</span>'}</div>
         <div class="da-cell ra${report===0?' z':''}"><span style="padding:0 10px;font-variant-numeric:tabular-nums">${report===0?'0.00':repFmt}</span></div>
         <div class="da-cell ra${supporting===0?' z':''}"><span style="padding:0 10px;font-variant-numeric:tabular-nums">${supporting===0?'0.00':supFmt}</span></div>
-        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${status}"><span class="da-status-dot"></span>${statusLabel}</span></div>
+        <div class="da-cell" style="padding-left:10px;padding-right:10px"><span class="da-status ${status}"><span class="da-status-dot-wrap"><span class="da-status-dot"></span></span>${statusLabel}</span></div>
       </div>`;
     }
   });
@@ -2376,22 +2417,32 @@ function setPtab(el) {
     }
   };
 
-  // Slide transition
-  panelsWrap.classList.add('tab-exit');
-  panelsWrap.style.transform = `translateX(${-dir * 18}px)`;
+  const daCardsEl2 = document.getElementById('daCards');
+
+  // Slide transition — animate both panelsWrap and daCards together
+  const animEls = [panelsWrap, daCardsEl2].filter(Boolean);
+
+  animEls.forEach(el => {
+    el.classList.add('tab-exit');
+    el.style.transform = `translateX(${-dir * 18}px)`;
+  });
 
   setTimeout(() => {
     applyContent();
-    panelsWrap.style.transition = 'none';
-    panelsWrap.style.opacity    = '0';
-    panelsWrap.style.transform  = `translateX(${dir * 18}px)`;
-    panelsWrap.classList.remove('tab-exit');
+    animEls.forEach(el => {
+      el.style.transition = 'none';
+      el.style.opacity    = '0';
+      el.style.transform  = `translateX(${dir * 18}px)`;
+      el.classList.remove('tab-exit');
+    });
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        panelsWrap.style.transition = '';
-        panelsWrap.style.opacity    = '1';
-        panelsWrap.style.transform  = 'none';
+        animEls.forEach(el => {
+          el.style.transition = '';
+          el.style.opacity    = '1';
+          el.style.transform  = 'none';
+        });
       });
     });
   }, 120);
@@ -2652,6 +2703,11 @@ function renderRows(arr, depth){
     if(n.type==='cat'){
       const hk=n.children&&n.children.length>0;
       const count = countAccounts(n);
+      const visibleCount = (function countF(arr) {
+        return arr.reduce((s,c) => c.type==='row' ? s+(rowOk(c)?1:0) : s+countF(c.children||[]), 0);
+      })(n.children||[]);
+      const anyFilter = fCode||fName||fDebit||fCredit||fJanXero||fJanWP||fFebXero||fFebWP;
+      if (anyFilter && visibleCount === 0) continue;
 
       // Calculate category totals
       function sumCat(arr, field) {
@@ -2699,7 +2755,7 @@ function renderRows(arr, depth){
             <span class="chev-wrap${n.expanded?'':' collapsed'}">${IC.chevDown}</span>
           </button>
           <span class="cat-nm" ${currentMode==='conversion'?`contenteditable="true" onblur="upd('${n.id}','name',this.textContent)"`:'contenteditable="false"'} spellcheck="false" data-placeholder="Category Name">${n.name}</span>
-          <span class="cat-count">${count} Account${count!==1?'s':''}</span>
+          <span class="cat-count">${visibleCount} Account${visibleCount!==1?'s':''}</span>
         </div>
         ${convAmts}
       </div>`;
