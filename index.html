@@ -632,7 +632,10 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
   background: none; border: none; cursor: pointer;
   font-size: 12px; font-family: 'Inter', inherit; font-weight: 400; line-height: 18px;
   color: var(--text-secondary); padding: 0; display: flex; align-items: center;
+  pointer-events: none;
+  transition: color .1s;
 }
+.add-row-btn-row:hover .add-row-btn { color: var(--accent); }
 .cat-count { font-size:12px; font-family:'Inter',inherit; font-weight:400; line-height:18px; color:var(--text-secondary); white-space:nowrap; flex-shrink:0; }
 
 /* DATA ASSESSMENT CARDS */
@@ -756,7 +759,7 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
 .chev-wrap.collapsed { transform: rotate(-90deg); }
 
 .children-wrap {
-  overflow: hidden;
+  overflow: clip;
   transition: height .25s cubic-bezier(.4,0,.2,1), opacity .2s ease;
 }
 
@@ -876,7 +879,9 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
   border-top: 1px solid var(--border); height: 40px;
   transition: var(--transition);
   min-width: 800px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 8;
 }
 
 .tcard-body > .cat-row:first-child,
@@ -901,7 +906,7 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
   pointer-events: none;
 }
 
-.cat-nm:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.cat-nm:focus { background: transparent; border-radius: 0; outline: none;  }
 .cat-r { display: flex; align-items: center; gap: 3px; padding-right: 12px; }
 .cat-hover { display: flex; align-items: center; gap: 2px; opacity: 0; transition: opacity .15s; }
 .cat-row:hover .cat-hover { opacity: 1; }
@@ -983,7 +988,7 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
   padding: 0 6px;
 }
 
-.cinp:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.cinp:focus { background: transparent; border-radius: 0; outline: none; border-color: var(--accent); }
 
 .acell { padding: 0; display: flex; align-items: center; overflow: hidden; height: 100%; }
 
@@ -996,18 +1001,18 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
 
 .ainp::-webkit-scrollbar { display: none; }
 
-.ainp:focus { background: transparent; border-radius: 0; padding: 0 10px; outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.ainp:focus { background: transparent; border-radius: 0; padding: 0 10px; outline: none; border-color: var(--accent); }
 
 .ncell { padding: 0; text-align: right; font-size: 12px; line-height: 18px; color: var(--text-primary); font-variant-numeric: tabular-nums; display: flex; align-items: center; justify-content: flex-end; height: 100%; }
 .ncell.z { color: var(--text-tertiary); }
 
 .ninp {
-  border: none; outline: none; background: transparent;
+  border: 1px solid transparent; outline: none; background: transparent;
   font-family: 'Inter', inherit; font-size: 12px; line-height: 18px; color: inherit; width: 100%; text-align: right;
-  padding: 0 10px; height: 100%;
+  padding: 0 10px; height: 100%; border-radius: 4px; transition: border-color .1s;
 }
 
-.ninp:focus { background: transparent; border-radius: 0; outline: none; box-shadow: inset 0 0 0 2px var(--accent); color: var(--text-primary); }
+.ninp:focus { background: transparent; outline: none; border-color: var(--accent); color: var(--text-primary); }
 
 .actn {
   display: flex; align-items: center; justify-content: flex-start;
@@ -1147,6 +1152,7 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
   transition: border-color .1s; width: 100%;
   box-sizing: border-box;
 }
+.dv-input:focus { border-color: var(--accent);  }
 
 .dv-input:read-only { cursor: not-allowed; }
 .dv-input:read-only:focus { border-color: var(--border); }
@@ -1484,11 +1490,11 @@ body.dark .wp-cell.active-cell { background: #1a2a3f; }
               <div id="dvFieldsAccount" style="display:flex;flex:1;gap:10px;align-items:flex-end;min-width:0">
                 <div class="dv-field">
                   <label class="dv-label">Code</label>
-                  <input class="dv-input" id="dvCode" placeholder="0-000" spellcheck="false">
+                  <input class="dv-input" id="dvCode" placeholder="Select Code" spellcheck="false" readonly style="cursor:pointer;" onclick="openCOADropdown(dvNodeId, this, 'dv')">
                 </div>
                 <div class="dv-field">
                   <label class="dv-label">Account</label>
-                  <input class="dv-input" id="dvAccount" placeholder="Account name" spellcheck="false">
+                  <input class="dv-input" id="dvAccount" placeholder="Select Account" spellcheck="false" readonly style="cursor:pointer;" onclick="openCOADropdown(dvNodeId, this, 'dv')">
                 </div>
                 <div class="dv-field">
                   <label class="dv-label">Debit</label>
@@ -2273,6 +2279,13 @@ function selectCOAItem(code, name) {
     const n = find(data, nodeId);
     if (n) { n.code = code; n.name = name; }
     render();
+    // Sync detail view if open for this node
+    const dvCodeEl = document.getElementById('dvCode');
+    const dvAccEl  = document.getElementById('dvAccount');
+    if (dvCodeEl && dvNodeId === nodeId) {
+      dvCodeEl.value = code;
+      if (dvAccEl) dvAccEl.value = name;
+    }
   }
 }
 
@@ -2287,6 +2300,8 @@ function closeCOADropdown(instant) {
       setTimeout(() => { if (dd.parentNode) dd.remove(); }, 180);
     }
   }
+  // Remove focus from the trigger input to clear the light blue bg
+  if (coaDropdownInput) coaDropdownInput.blur();
   document.removeEventListener('mousedown', coaOutsideClick);
   coaDropdownNodeId = null;
   coaDropdownInput  = null;
@@ -2689,8 +2704,8 @@ function renderRows(arr, depth){
         ${convAmts}
       </div>`;
       if(currentMode==='conversion'){
-        h+=`<div class="add-row-btn-row" data-cat="${n.id}">
-          <button class="add-row-btn" onclick="addRowToParent('${n.id}')">Add row to ${n.name||'this category'}</button>
+        h+=`<div class="add-row-btn-row" data-cat="${n.id}" onclick="addRowToParent('${n.id}')">
+          <span class="add-row-btn">Add row to ${n.name||'this category'}</span>
         </div>`;
       }
       if(n.children){
@@ -2714,11 +2729,11 @@ function renderRows(arr, depth){
           <button class="ibtn" onclick="toggle('${n.id}')" style="${hk?'':'visibility:hidden'}">
             <span class="chev-wrap${hk&&!n.expanded?' collapsed':''}">${IC.chevDown}</span>
           </button>
-          <input class="cinp" value="${n.code||''}" placeholder="0-000" spellcheck="false"
+          <input class="cinp" value="${n.code||''}" placeholder="Select Code" spellcheck="false"
             ${currentMode==='trial' ? 'readonly tabindex="-1" style="pointer-events:none"' : `readonly onclick="event.stopPropagation();openCOADropdown('${n.id}',this)" style="cursor:pointer;"`}>
         </div>
         <div class="acell">
-          <input class="ainp" value="${n.name||''}" placeholder="Account Name" spellcheck="false"
+          <input class="ainp" value="${n.name||''}" placeholder="Select Account" spellcheck="false"
             ${currentMode==='trial' ? 'readonly style="pointer-events:none"' : `readonly onclick="event.stopPropagation();openCOADropdown('${n.id}',this)" style="cursor:pointer;"`}>
         </div>
         ${currentMode==='conversion' ? `
