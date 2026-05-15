@@ -1993,20 +1993,22 @@ function syncRowInput(id, field) {
 }
 
 
+function stripAmt(s) { return s.replace(/[.,]/g, ''); }
+
 function rowOk(n){
   if(!fCode&&!fName&&!fDebit&&!fCredit&&!fJanXero&&!fJanWP&&!fFebXero&&!fFebWP)return true;
   if(currentMode==='trial'){
     return (!fCode||(n.code||'').toLowerCase().includes(fCode))
       &&(!fName||(n.name||'').toLowerCase().includes(fName))
-      &&(!fJanXero||fmtTB(getXeroForMonth(n,'jan')).toLowerCase().includes(fJanXero))
-      &&(!fJanWP||fmtTB(getWPForMonth(n,'jan')).toLowerCase().includes(fJanWP))
-      &&(!fFebXero||fmtTB(getXeroForMonth(n,'feb')).toLowerCase().includes(fFebXero))
-      &&(!fFebWP||fmtTB(getWPForMonth(n,'feb')).toLowerCase().includes(fFebWP));
+      &&(!fJanXero||stripAmt(fmtTB(getXeroForMonth(n,'jan'))).includes(stripAmt(fJanXero)))
+      &&(!fJanWP||stripAmt(fmtTB(getWPForMonth(n,'jan'))).includes(stripAmt(fJanWP)))
+      &&(!fFebXero||stripAmt(fmtTB(getXeroForMonth(n,'feb'))).includes(stripAmt(fFebXero)))
+      &&(!fFebWP||stripAmt(fmtTB(getWPForMonth(n,'feb'))).includes(stripAmt(fFebWP)));
   }
   return (!fCode||(n.code||'').toLowerCase().includes(fCode))
     &&(!fName||(n.name||'').toLowerCase().includes(fName))
-    &&(!fDebit||fmt(n.debit||0).includes(fDebit))
-    &&(!fCredit||fmt(n.credit||0).includes(fCredit));
+    &&(!fDebit||stripAmt(fmt(n.debit||0)).includes(stripAmt(fDebit)))
+    &&(!fCredit||stripAmt(fmt(n.credit||0)).includes(stripAmt(fCredit)));
 }
 
 function applyFilter(){
